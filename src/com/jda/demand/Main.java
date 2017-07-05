@@ -14,7 +14,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/bootstrap3.fxml"));
         Parent root = loader.load();
         Stage window = primaryStage;
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 860, 620);
         Image image = new Image(getClass().getClassLoader().getResourceAsStream("images/setup.png"));
         window.getIcons().add(image);
         window.setTitle("Demand setup and build");
