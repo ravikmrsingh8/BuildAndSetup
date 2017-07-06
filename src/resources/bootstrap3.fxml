@@ -41,9 +41,9 @@
                 <Tab text="Build Properties">
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="790.0">
                         <children>
-                            <Pane layoutX="16.0" layoutY="14.0" prefHeight="469.0" prefWidth="719.0">
+                            <VBox layoutX="16.0" layoutY="14.0" prefHeight="399.0" prefWidth="789.0">
                                 <children>
-                                    <HBox layoutX="23.0" layoutY="12.0" prefHeight="340.0" prefWidth="670.0" spacing="20.0">
+                                    <HBox layoutX="23.0" layoutY="12.0" prefHeight="257.0" prefWidth="789.0" spacing="20.0">
                                         <children>
                                             <VBox prefHeight="454.0" prefWidth="302.0" spacing="15.0">
                                                 <padding>
@@ -52,32 +52,21 @@
                                                 <children>
                                                     <VBox>
                                                         <children>
-                                                            <Label prefHeight="17.0" prefWidth="126.0" text="SCPO Root">
+                                                            <Label prefHeight="20.0" prefWidth="243.0" text="Environment Variables Setup File">
                                                                 <font>
                                                                     <Font size="14.0" />
                                                                 </font>
                                                             </Label>
-                                                            <TextField />
-                                                        </children>
-                                                    </VBox>
-                                                      <VBox>
-                                                          <children>
-                                                              <Label prefHeight="17.0" prefWidth="126.0" text="Java Home">
-                                                                  <font>
-                                                                      <Font size="14.0" />
-                                                                  </font>
-                                                              </Label>
-                                                              <TextField />
-                                                          </children>
-                                                      </VBox>
-                                                    <VBox layoutX="15.0" layoutY="15.0">
-                                                        <children>
-                                                            <Label prefHeight="17.0" prefWidth="126.0" text="CIS SDK Home">
-                                                                <font>
-                                                                    <Font size="14.0" />
-                                                                </font>
-                                                            </Label>
-                                                            <TextField />
+                                                            <HBox spacing="5.0">
+                                                                <children>
+                                                                    <TextField prefWidth="391.0" />
+                                                                    <ImageView fitHeight="31.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                                                        <image>
+                                                                            <Image url="@images/search.png" />
+                                                                        </image>
+                                                                    </ImageView>
+                                                                </children>
+                                                            </HBox>
                                                         </children>
                                                     </VBox>
                                                     <VBox layoutX="15.0" layoutY="145.0">
@@ -99,28 +88,28 @@
                                                             </HBox>
                                                         </children>
                                                     </VBox>
-                                                    <VBox layoutX="15.0" layoutY="145.0">
+                                                    <VBox layoutX="15.0" layoutY="15.0">
                                                         <children>
-                                                            <Label prefHeight="17.0" prefWidth="126.0" text="Scpo License File">
+                                                            <Label prefHeight="17.0" prefWidth="126.0" text="CIS SDK Home">
                                                                 <font>
                                                                     <Font size="14.0" />
                                                                 </font>
                                                             </Label>
-                                                            <HBox spacing="5.0">
-                                                                <children>
-                                                                    <TextField prefWidth="391.0" />
-                                                                    <ImageView fitHeight="31.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
-                                                                        <image>
-                                                                            <Image url="@images/search.png" />
-                                                                        </image>
-                                                                    </ImageView>
-                                                                </children>
-                                                            </HBox>
+                                                            <TextField />
                                                         </children>
                                                     </VBox>
+                                                    <HBox prefHeight="51.0" prefWidth="416.0">
+                                                        <children>
+                                                            <CheckBox mnemonicParsing="false" prefHeight="46.0" prefWidth="168.0" text="Find Bug " selected="true">
+                                                                <font>
+                                                                    <Font size="14.0" />
+                                                                </font>
+                                                            </CheckBox>
+                                                        </children>
+                                                    </HBox>
                                                 </children>
                                             </VBox>
-                                            <VBox layoutX="10.0" layoutY="10.0" prefHeight="454.0" prefWidth="164.0" spacing="15.0">
+                                            <VBox layoutX="10.0" layoutY="10.0" prefHeight="384.0" prefWidth="341.0" spacing="15.0">
                                                 <padding>
                                                     <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
                                                 </padding>
@@ -145,34 +134,85 @@
                                                             <TextField />
                                                         </children>
                                                     </VBox>
-                                                    <HBox prefHeight="51.0" prefWidth="416.0">
+                                                    <VBox>
                                                         <children>
-                                                            <CheckBox mnemonicParsing="false" prefHeight="46.0" prefWidth="168.0" text="Find Bug ">
+                                                            <Label prefHeight="17.0" prefWidth="126.0" text="License File">
                                                                 <font>
                                                                     <Font size="14.0" />
                                                                 </font>
-                                                            </CheckBox>
+                                                            </Label>
+                                                            <HBox spacing="5.0">
+                                                                <children>
+                                                                    <TextField prefWidth="391.0" />
+                                                                    <ImageView fitHeight="31.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                                                        <image>
+                                                                            <Image url="@images/search.png" />
+                                                                        </image>
+                                                                    </ImageView>
+                                                                </children>
+                                                            </HBox>
                                                         </children>
-                                                    </HBox>
+                                                    </VBox>
+
                                                 </children>
                                             </VBox>
                                         </children>
                                     </HBox>
-                                    <ToolBar layoutX="24.0" layoutY="352.0" prefHeight="42.0" prefWidth="682.0">
-                                        <items>
-                                            <Button minWidth="200" mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" style="-fx-background-insets: 0,0,-1,0;" styleClass="primary" text="Save" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="789.0">
+                                        <children>
 
-                                            <Button minWidth="200" mnemonicParsing="false" prefHeight="32.0" prefWidth="125.0" style="-fx-background-insets: 0,0,-1,0;" styleClass="primary" text="Edit" />
 
-                                            <Button minWidth="200" mnemonicParsing="false" prefHeight="32.0" prefWidth="144.0" style="-fx-background-insets: 0,0,-1,0;" styleClass="primary" text="Refresh" />
+                                            <ToolBar prefHeight="40.0" prefWidth="671.0">
+                                                <items>
+                                                    <Label alignment="TOP_CENTER" prefHeight="24.0" prefWidth="72.0" text="Build Tasks">
+                                                        <font>
+                                                            <Font size="14.0" />
+                                                        </font>
+                                                    </Label>
+                                                    <CheckBox mnemonicParsing="false" prefHeight="30.0" prefWidth="74.0" text="Clean">
+                                                        <font>
+                                                            <Font size="14.0" />
+                                                        </font>
+                                                    </CheckBox>
+                                                    <CheckBox layoutX="83.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="System">
+                                                        <font>
+                                                            <Font size="14.0" />
+                                                        </font>
+                                                    </CheckBox>
+                                                    <CheckBox layoutX="168.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="98.0" text="Customize">
+                                                        <font>
+                                                            <Font size="14.0" />
+                                                        </font>
+                                                    </CheckBox>
+                                                    <CheckBox layoutX="253.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="142.0" text="BEA Create Server">
+                                                        <font>
+                                                            <Font size="14.0" />
+                                                        </font>
+                                                    </CheckBox>
+                                                    <CheckBox layoutX="315.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" text="Demand Source" selected="true">
+                                                        <font>
+                                                            <Font size="14.0" />
+                                                        </font>
+                                                    </CheckBox>
+                                                </items>
+                                            </ToolBar>
 
-                                        </items>
-                                        <padding>
-                                            <Insets bottom="10.0" left="0.0" right="10.0" top="10.0" />
-                                        </padding>
-                                    </ToolBar>
+
+                                        </children>
+                                    </HBox>
+                           <HBox prefHeight="76.0" prefWidth="789.0">
+                              <children>
+                                 <ToolBar prefHeight="42.0" prefWidth="671.0">
+                                   <items>
+                                     <Button minWidth="150" mnemonicParsing="false" style="-fx-background-insets: 0,0,-1,0;" styleClass="primary" text="Build" />
+                                       <Button layoutX="10.0" layoutY="9.0" minWidth="200" mnemonicParsing="false" style="-fx-background-insets: 0,0,-1,0;" styleClass="primary" text="Save Properties" />
+                                   </items>
+                                 </ToolBar>
+                              </children>
+                           </HBox>
+
                                 </children>
-                            </Pane>
+                            </VBox>
                         </children>
                     </AnchorPane>
                 </Tab>
@@ -186,28 +226,28 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="492.0" prefWidth="830.0">
                         <VBox prefHeight="500.0" prefWidth="823.0">
                             <children>
-                        <ScrollPane>
-                           <content>
-      
-                                      <TableView fx:id="tableView" prefHeight="455.0" prefWidth="784.0">
-                                          <columns>
-                                              <TableColumn prefWidth="820.0" text="All Files">
-                                                  <cellValueFactory>
-                                                      <PropertyValueFactory property="absolutePath" />
-                                                  </cellValueFactory>
-                                              </TableColumn>
-                                          </columns>
-                                          <items>
-                                              <FXCollections fx:factory="observableArrayList">
+                                <ScrollPane>
+                                    <content>
 
-                                        </FXCollections>
-                                          </items>
-                                      </TableView>
-                           </content>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </ScrollPane>
+                                        <TableView fx:id="tableView" prefHeight="455.0" prefWidth="784.0">
+                                            <columns>
+                                                <TableColumn prefWidth="820.0" text="All Files">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="absolutePath" />
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                            </columns>
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+
+                                                </FXCollections>
+                                            </items>
+                                        </TableView>
+                                    </content>
+                                    <VBox.margin>
+                                        <Insets />
+                                    </VBox.margin>
+                                </ScrollPane>
                                 <HBox alignment="BOTTOM_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefWidth="738.0">
                                     <children>
                                         <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="819.0">
