@@ -1,5 +1,7 @@
 # Demand Code Build 
 
-<img src="screenshots/buildprops.png"/>
+- <img src="screenshots/buildprops.png"/>
 
-<img src="screenshots/createjar.png"/>
+- <img src="screenshots/controls.png"/>
+
+- <img src="screenshots/createjar.png"/>
