@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="790.0"
+            stylesheets="@css/bootstrap3.css"
+            fx:controller="com.jda.demand.devsetup.controllers.BuildPropertiesController"
+            xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox layoutX="16.0" layoutY="14.0" prefHeight="399.0" prefWidth="789.0">
+            <children>
+                <HBox layoutX="23.0" layoutY="12.0" prefHeight="257.0" prefWidth="789.0" spacing="20.0">
+                    <children>
+                        <VBox prefHeight="454.0" prefWidth="302.0" spacing="15.0">
+                            <padding>
+                                <Insets bottom="10.0" left="5.0" right="5.0" top="5.0"/>
+                            </padding>
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="20.0" prefWidth="243.0"
+                                               text="Environment Variables Setup File">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </Label>
+                                        <HBox spacing="5.0">
+                                            <children>
+                                                <TextField fx:id="batFileInput" prefWidth="391.0"/>
+                                                <ImageView fx:id="batFileChooserButton" fitHeight="31.0" fitWidth="46.0"
+                                                           pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@images/search.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <VBox layoutX="15.0" layoutY="145.0">
+                                    <children>
+                                        <Label prefHeight="17.0" prefWidth="126.0" text="Build Properties File">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </Label>
+                                        <HBox spacing="5.0">
+                                            <children>
+                                                <TextField fx:id="propFilePath" prefWidth="391.0"/>
+                                                <ImageView fitHeight="31.0" fitWidth="46.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@images/search.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <VBox layoutX="15.0" layoutY="15.0">
+                                    <children>
+                                        <Label prefHeight="17.0" prefWidth="126.0" text="CIS SDK Home">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="cisHomeInput"/>
+                                    </children>
+                                </VBox>
+                                <HBox prefHeight="51.0" prefWidth="416.0">
+                                    <children>
+                                        <CheckBox mnemonicParsing="false" prefHeight="46.0" prefWidth="168.0"
+                                                  selected="true" text="Find Bug ">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </CheckBox>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="384.0" prefWidth="341.0" spacing="15.0">
+                            <padding>
+                                <Insets bottom="10.0" left="5.0" right="5.0" top="5.0"/>
+                            </padding>
+                            <children>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="17.0" prefWidth="126.0" text="Server Admin Port">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="adminPortText" disable="true" maxWidth="150"/>
+                                    </children>
+                                </VBox>
+                                <VBox layoutX="15.0" layoutY="15.0">
+                                    <children>
+                                        <Label prefHeight="20.0" prefWidth="199.0" text="Standard Server Port">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </Label>
+                                        <TextField fx:id="webServerPort" disable="true" maxWidth="150"/>
+                                    </children>
+                                </VBox>
+                                <VBox>
+                                    <children>
+                                        <Label prefHeight="17.0" prefWidth="126.0" text="License File">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </Label>
+                                        <HBox spacing="5.0">
+                                            <children>
+                                                <TextField prefWidth="391.0"/>
+                                                <ImageView fitHeight="31.0" fitWidth="46.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@images/search.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="789.0">
+                    <children>
+
+
+                        <ToolBar prefHeight="40.0" prefWidth="671.0">
+                            <items>
+                                <Label alignment="TOP_CENTER" prefHeight="24.0" prefWidth="72.0" text="Build Tasks">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <CheckBox mnemonicParsing="false" prefHeight="30.0" prefWidth="74.0" text="Clean">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </CheckBox>
+                                <CheckBox layoutX="83.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0"
+                                          prefWidth="75.0" text="System">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </CheckBox>
+                                <CheckBox layoutX="168.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0"
+                                          prefWidth="98.0" text="Customize">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </CheckBox>
+                                <CheckBox layoutX="253.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0"
+                                          prefWidth="142.0" text="BEA Create Server">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </CheckBox>
+                                <CheckBox layoutX="315.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0"
+                                          prefWidth="130.0" selected="true" text="Demand Source">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </CheckBox>
+                            </items>
+                        </ToolBar>
+
+
+                    </children>
+                </HBox>
+                <HBox prefHeight="76.0" prefWidth="789.0">
+                    <children>
+                        <ToolBar prefHeight="42.0" prefWidth="671.0">
+                            <items>
+                                <Button fx:id="buildButton" minWidth="150" mnemonicParsing="false"
+                                        onAction="#onBuildButton" style="-fx-background-insets: 0,0,-1,0;"
+                                        styleClass="primary" text="Build"/>
+                                <Button layoutX="10.0" layoutY="9.0" minWidth="200" mnemonicParsing="false"
+                                        style="-fx-background-insets: 0,0,-1,0;" styleClass="primary"
+                                        text="Save Properties"/>
+                            </items>
+                        </ToolBar>
+                    </children>
+                </HBox>
+
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -1,5 +1,6 @@
-package com.jda.demand;
+package com.jda.demand.devsetup;
 
+import com.jda.demand.devsetup.controllers.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,7 +23,7 @@ public class Main extends Application {
         window.setResizable(false);
         window.sizeToScene();
 
-        Controller controller = loader.getController();
+        MainController controller = loader.getController();
         controller.setWindow(window);
         controller.setScene(scene);
 

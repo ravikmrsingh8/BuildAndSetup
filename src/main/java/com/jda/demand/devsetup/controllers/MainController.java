@@ -1,5 +1,4 @@
-package com.jda.demand;
-
+package com.jda.demand.devsetup.controllers;
 
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -8,7 +7,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class MainController implements Initializable {
 
     private Stage window;
     private Scene scene;

@@ -1,4 +1,4 @@
-package com.jda.custom.component;
+package com.jda.demand.devsetup.components;
 
 import javafx.animation.FillTransition;
 import javafx.animation.ParallelTransition;
