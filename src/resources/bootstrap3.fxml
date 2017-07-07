@@ -227,7 +227,22 @@
                 <Tab text="Controls ">
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="790.0">
                         <children>
-                            <VBox layoutX="16.0" layoutY="14.0" prefHeight="489.0" prefWidth="789.0" spacing="15">
+                            <VBox>
+                                    <children>
+                            <VBox layoutX="10.0" layoutY="110.0" prefHeight="147.0" prefWidth="789.0">
+                                <children>
+                                    <Label prefHeight="20.0" prefWidth="293.0" text="Last Executed Command">
+                                        <font>
+                                            <Font size="14.0" />
+                                        </font>
+                                    </Label>
+                                    <TextArea prefHeight="100.0" prefWidth="789.0" />
+                                </children>
+                              <padding>
+                                 <Insets left="10.0" top="10.0" />
+                              </padding>
+                            </VBox>
+                            <VBox layoutX="16.0" layoutY="14.0" prefHeight="213.0" prefWidth="789.0" spacing="15">
                                 <children>
 
                                     <HBox layoutX="10.0" layoutY="10.0" prefHeight="161.0" prefWidth="789.0" spacing="20.0">
@@ -287,37 +302,35 @@
                                             </GridPane>
                                         </children>
                                     </HBox>
-                                    <HBox prefHeight="135.0" prefWidth="789.0">
-                              <children>
-                                 <Label prefHeight="122.0" prefWidth="120.0" text="Post Build Tasks">
-                                    <font>
-                                       <Font size="14.0" />
-                                    </font>
-                                 </Label>
-                                 <VBox layoutX="10.0" layoutY="10.0" prefHeight="135.0" prefWidth="621.0">
-                                    <children>
-                                       <ToolBar orientation="VERTICAL" prefHeight="128.0" prefWidth="213.0">
-                                         <items>
-                                           <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="201.0" text="Insatall License" />
-                                             <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="201.0" text="Run Scpo Task" />
-                                             <Button layoutX="10.0" layoutY="46.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="201.0" text="Set Config Code" />
-                                         </items>
-                                       </ToolBar>
-                                    </children>
-                                 </VBox>
-                              </children></HBox>
 
-                                    <VBox layoutX="10.0" layoutY="110.0" prefHeight="147.0" prefWidth="789.0">
-                                        <children>
-                                            <Label prefHeight="20.0" prefWidth="293.0" text="Last Executed Command">
-                                                <font>
-                                                    <Font size="14.0" />
-                                                </font>
-                                            </Label>
-                                            <TextArea prefHeight="100.0" prefWidth="789.0" />
-                                        </children>
-                                    </VBox>
+
                                 </children>
+                            </VBox>
+                              <HBox prefHeight="135.0" prefWidth="789.0">
+                        <children>
+                           <VBox layoutX="10.0" layoutY="10.0" prefHeight="135.0" prefWidth="621.0">
+                              <children>
+                                       <Label prefHeight="17.0" prefWidth="330.0" text="Post Build Task">
+                                          <font>
+                                             <Font size="14.0" />
+                                          </font>
+                                       </Label>
+                                 <ToolBar prefHeight="57.0" prefWidth="621.0">
+                                   <items>
+                                     <Button mnemonicParsing="false" prefHeight="32.0" styleClass="primary" prefWidth="132.0" text="Insatall License" />
+                                       <Button layoutX="10.0" layoutY="10.0" styleClass="primary" mnemonicParsing="false" prefHeight="32.0" prefWidth="137.0" text="Run Scpo Task" />
+                                       <Button layoutX="10.0" layoutY="46.0"  styleClass="primary" mnemonicParsing="false" prefHeight="32.0" prefWidth="127.0" text="Set Config Code" />
+                                             <Button layoutX="287.0" layoutY="52.0"  styleClass="primary" mnemonicParsing="false" prefHeight="32.0" prefWidth="177.0" text="SRE Node Pool Cleanup" />
+                                   </items>
+                                 </ToolBar>
+                              </children>
+                                    <padding>
+                                       <Insets left="10.0" />
+                                    </padding>
+                           </VBox>
+                        </children>
+                           </HBox>
+                        </children>
                             </VBox>
                         </children>
                     </AnchorPane>

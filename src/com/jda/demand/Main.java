@@ -17,7 +17,7 @@ public class Main extends Application {
         Scene scene = new Scene(root, 860, 620);
         Image image = new Image(getClass().getClassLoader().getResourceAsStream("images/setup.png"));
         window.getIcons().add(image);
-        window.setTitle("Demand setup and build");
+        window.setTitle("Demand Dev Setup");
         window.setScene(scene);
         window.setResizable(false);
         window.sizeToScene();
