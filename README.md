@@ -1,7 +1,7 @@
 # Demand Code Build 
 
-<img src="src/main/resources/images/search.png"/>
+<img src="screenshots/buildprops.png"/>
 
-<img src="src/main/resources/images/controls.png"/>
+<img src="screenshots/controls.png"/>
 
-<img src="src/main/resources/images/createjar.png"/>
+<img src="screenshots/createjar.png"/>
