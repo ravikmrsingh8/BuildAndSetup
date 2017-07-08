@@ -13,48 +13,54 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="835.0" stylesheets="@css/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jda.demand.devsetup.controllers.JarBuilderController">
-    <VBox layoutX="-8.0" prefHeight="505.0" prefWidth="831.0">
+    <VBox layoutX="0.0" prefHeight="505.0" prefWidth="831.0">
         <children>
-            <ScrollPane>
-                <content>
-
-                    <TableView fx:id="tableView" prefHeight="455.0" prefWidth="827.0">
-                        <columns>
-                            <TableColumn prefWidth="820.0" text="All Files">
-                                <cellValueFactory>
-                                    <PropertyValueFactory property="absolutePath" />
-                                </cellValueFactory>
-                            </TableColumn>
-                        </columns>
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-
-                            </FXCollections>
-                        </items>
-                    </TableView>
-                </content>
+            <VBox>
                 <VBox.margin>
                     <Insets />
                 </VBox.margin>
-            </ScrollPane>
+                <children>
+                    <ScrollPane>
+                        <content>
+
+                            <TableView fx:id="tableView" prefHeight="455.0" prefWidth="800.0">
+                                <columns>
+                                    <TableColumn prefWidth="790.0" text="All Files">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="absolutePath" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                </columns>
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+
+                                    </FXCollections>
+                                </items>
+                            </TableView>
+                        </content>
+                    </ScrollPane>
+                </children>
+            </VBox>
             <HBox alignment="BOTTOM_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="816.0">
                 <children>
                     <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="819.0">
                         <items>
-                            <Label fx:id="label" minWidth="48.0" prefHeight="31.0" prefWidth="183.0" text="">
-                                <font>
-                                    <Font size="14.0" />
-                                </font>
-                            </Label>
                             <ImageView fx:id="imageView" fitHeight="33.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
 
                                 </image>
                             </ImageView>
+                            <Label fx:id="label" minWidth="48.0" prefHeight="31.0" prefWidth="182.0" text="">
+                                <font>
+                                    <Font size="14.0" />
+                                </font>
+                            </Label>
+                            <Region minWidth="10"/>
 
                             <TextField fx:id="inputJarName" minWidth="40" prefHeight="32.0" prefWidth="170.0" promptText="JAR Name">
                                 <font>
@@ -62,12 +68,12 @@
                                 </font>
                             </TextField>
 
-                            <Button fx:id="addFileButton" onAction="#onAddFile" mnemonicParsing="true" style="-fx-background-insets: 0,0,-1,0;" styleClass="primary" text="_Add Files">
+                            <Button fx:id="addFileButton" mnemonicParsing="true" onAction="#onAddFile" style="-fx-background-insets: 0,0,-1,0;" styleClass="primary" text="_Add Files">
                                 <font>
                                     <Font size="14.0" />
                                 </font>
                             </Button>
-                            <Button fx:id="addFolderButton" mnemonicParsing="true" style="-fx-background-insets: 0,0,-1,0;" styleClass="primary" text="Add _Folder">
+                            <Button fx:id="addFolderButton" mnemonicParsing="true" onAction="#onAddFolderButton" style="-fx-background-insets: 0,0,-1,0;" styleClass="primary" text="Add _Folder">
 
                                 <font>
                                     <Font size="14.0" />
