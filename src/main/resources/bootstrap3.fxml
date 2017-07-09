@@ -15,13 +15,16 @@
 <?import com.jda.demand.devsetup.components.PropertiesTabPane?>
 <?import com.jda.demand.devsetup.components.ControlsTabPane?>
 <?import com.jda.demand.devsetup.components.JarBuilderTabPane?>
-<BorderPane maxHeight="628.0" maxWidth="874.0" minHeight="500" minWidth="799.0" prefHeight="628.0" prefWidth="874.0" stylesheets="@css/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jda.demand.devsetup.controllers.MainController">
+<BorderPane maxHeight="628.0" maxWidth="874.0" minHeight="500" minWidth="799.0" prefHeight="628.0" prefWidth="874.0"
+            stylesheets="@css/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.112"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jda.demand.devsetup.controllers.MainController">
     <top>
         <AnchorPane prefHeight="81.0" prefWidth="800.0" BorderPane.alignment="CENTER">
             <children>
-                <ImageView fitHeight="62.0" fitWidth="265.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="62.0" fitWidth="265.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true"
+                           preserveRatio="true">
                     <image>
-                        <Image url="@images/JDA.png" />
+                        <Image url="@images/JDA.png"/>
                     </image>
                 </ImageView>
 
@@ -52,9 +55,10 @@
         <Pane prefHeight="38.0" prefWidth="755.0" BorderPane.alignment="CENTER">
             <children>
 
-                <Label alignment="BASELINE_LEFT" layoutX="21.0" layoutY="9.0" prefHeight="27.0" prefWidth="375.0" text="(C) Demand Team">
+                <Label alignment="BASELINE_LEFT" layoutX="21.0" layoutY="9.0" prefHeight="27.0" prefWidth="375.0"
+                       text="(C) Demand Team">
                     <font>
-                        <Font size="14.0" />
+                        <Font size="14.0"/>
                     </font>
                 </Label>
             </children>

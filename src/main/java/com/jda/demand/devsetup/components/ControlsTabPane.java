@@ -10,7 +10,7 @@ public class ControlsTabPane extends Parent {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/controlsTab.fxml"));
         try {
             getChildren().add(loader.load());
-        } catch (IOException ioe){
+        } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }
     }

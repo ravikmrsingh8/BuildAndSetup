@@ -1,4 +1,4 @@
-package com.jda.demand.devsetup.properties;
+package com.jda.demand.devsetup.lookup;
 
 import com.jda.demand.devsetup.utils.Constants;
 
@@ -32,7 +32,7 @@ public class Preferences {
     public void load() {
         try {
             File file = new File(Constants.PREFERENCES);
-            //Create a new preferences.properties file
+            //Create a new preferences.lookup file
             if (!file.exists()) {
                 file = createPreferences();
             }
@@ -54,7 +54,12 @@ public class Preferences {
         FileOutputStream os = new FileOutputStream(Constants.PREFERENCES);
         properties.store(os, "User Preferences");
     }
+
     public String getProperty(String key) {
         return properties.getProperty(key);
+    }
+
+    public void setProperty(String key, String value) {
+        properties.setProperty(key, value);
     }
 }

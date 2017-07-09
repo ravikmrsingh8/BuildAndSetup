@@ -1,19 +1,16 @@
 package com.jda.demand.devsetup.services.commands;
 
-public class BasicNodePoolStartCommand extends AbstractCommand {
-
+public class RMIPoolStartCommand extends AbstractCommand {
     private final String EXE = "startNodePoolManager.cmd";
 
-    public BasicNodePoolStartCommand() {
+    public RMIPoolStartCommand() {
         super("cmd");
         addArgument("/c");
         addArgument("start");
-        addArgument("Basic Node Pool");
+        addArgument("RMI Node Pool");
         addArgument("cmd");
         addArgument("/k");
         addArgument(EXE);
-        addArgument("Basic");
+        addArgument("RMI");
     }
-
 }
-

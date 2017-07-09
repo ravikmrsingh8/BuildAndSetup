@@ -65,16 +65,16 @@ public class ToggleSwitch extends Region {
         });
 
         setOnMouseClicked(
-            new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    switchedOn.set(!switchedOn.get());
-                    EventHandler<MouseEvent> handler = onActionProperty().get();
-                    if(handler != null) {
-                        onActionProperty().get().handle(event);
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        switchedOn.set(!switchedOn.get());
+                        EventHandler<MouseEvent> handler = onActionProperty().get();
+                        if (handler != null) {
+                            onActionProperty().get().handle(event);
+                        }
                     }
                 }
-            }
         );
 
     }

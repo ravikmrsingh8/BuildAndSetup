@@ -1,6 +1,6 @@
 package com.jda.demand.devsetup.utils;
 
-import com.jda.demand.devsetup.properties.Preferences;
+import com.jda.demand.devsetup.lookup.Preferences;
 import javafx.scene.control.TextField;
 
 import java.io.File;
@@ -9,12 +9,10 @@ import java.util.logging.Logger;
 
 public class JarUtility {
 
-    public static Preferences preferences = Preferences.getInstance();
-
     public static String getPathWithPackage(File javaFile) {
         String file = javaFile.getAbsolutePath();
         String separator = File.separator;
-        String scpoDir = preferences.getProperty(Constants.SCPO_HOME);
+        String scpoDir = Preferences.getInstance().getProperty(Constants.SCPO_HOME);
         if (scpoDir == null || scpoDir.isEmpty()) {
             Logger.getLogger("JarUtility").log(Level.SEVERE, "SCPO HOME Required");
             throw new RuntimeException("SCPO Home Required");
@@ -27,7 +25,7 @@ public class JarUtility {
 
     public static String getPathAfterScpo(File file) {
         String filePath = file.getAbsolutePath();
-        String scpoDir = preferences.getProperty(Constants.SCPO_HOME);
+        String scpoDir = Preferences.getInstance().getProperty(Constants.SCPO_HOME);
         if (scpoDir == null || scpoDir.isEmpty()) {
             Logger.getLogger("JarUtility").log(Level.SEVERE, "SCPO HOME Required");
             throw new RuntimeException("SCPO Home Required");

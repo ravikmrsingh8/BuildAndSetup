@@ -1,17 +1,17 @@
 package com.jda.demand.devsetup.services.commands;
 
+public class CISAgentStartCommand extends AbstractCommand {
 
-public class AdminServerStartCommand extends AbstractCommand {
+    private final String EXE = "launch.bat";
 
-    private final String EXE = "startWebworksAdminServer.cmd";
-
-    public AdminServerStartCommand() {
+    public CISAgentStartCommand() {
         super("cmd");
         addArgument("/C");
         addArgument("start");
-        addArgument("Admin Server");
+        addArgument("CIS Agent");
         addArgument("cmd.exe");
         addArgument("/K");
         addArgument(EXE);
+        addArgument("runCISAgent.py");
     }
 }

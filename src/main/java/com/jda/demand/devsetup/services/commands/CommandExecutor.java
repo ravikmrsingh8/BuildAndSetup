@@ -6,18 +6,24 @@ import org.apache.commons.exec.DefaultExecuteResultHandler;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.Executor;
 
-import java.io.IOException;
+import java.io.File;
+
 
 public class CommandExecutor {
     private static Executor executor = new DefaultExecutor();
-    public static String execute(String command) {
-        CommandLine commandLine = CommandFactory.getCommand(command);
-        System.out.println(commandLine);
+
+    public static String execute(String cmd) {
+        Command command = CommandFactory.getCommand(cmd);
+
+        CommandLine cmdLine = null;
         try {
-            executor.execute(commandLine, new DefaultExecuteResultHandler());
-        } catch (IOException e) {
+            cmdLine = (CommandLine) command.getCommand().newInstance();
+            File workingDir = command.getWorkingDir() == null ? new File(".") : command.getWorkingDir();
+            executor.setWorkingDirectory(workingDir);
+            executor.execute(cmdLine, new DefaultExecuteResultHandler());
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return commandLine.toString();
+        return cmdLine.toString();
     }
 }

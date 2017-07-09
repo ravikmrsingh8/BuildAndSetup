@@ -1,6 +1,6 @@
 package com.jda.demand.devsetup.controllers;
 
-import com.jda.demand.devsetup.properties.Preferences;
+import com.jda.demand.devsetup.lookup.Preferences;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class BuildPropertiesController implements Initializable{
+public class BuildPropertiesController implements Initializable {
 
     @FXML
     private Button buildButton;

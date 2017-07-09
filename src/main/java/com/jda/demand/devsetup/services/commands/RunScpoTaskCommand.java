@@ -1,17 +1,16 @@
 package com.jda.demand.devsetup.services.commands;
 
+public class RunScpoTaskCommand extends AbstractCommand {
+    private final String EXE = "runScpoTask.cmd";
 
-public class AdminServerStartCommand extends AbstractCommand {
-
-    private final String EXE = "startWebworksAdminServer.cmd";
-
-    public AdminServerStartCommand() {
+    public RunScpoTaskCommand() {
         super("cmd");
         addArgument("/C");
         addArgument("start");
-        addArgument("Admin Server");
+        addArgument("Run SCPO Task");
         addArgument("cmd.exe");
         addArgument("/K");
         addArgument(EXE);
+        addArgument("generate_configcode");
     }
 }
