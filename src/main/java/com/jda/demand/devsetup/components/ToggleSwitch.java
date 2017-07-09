@@ -4,15 +4,19 @@ import javafx.animation.FillTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.scene.Parent;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.EventHandler;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class ToggleSwitch extends Parent {
+public class ToggleSwitch extends Region {
 
     private BooleanProperty switchedOn = new SimpleBooleanProperty(false);
 
@@ -23,6 +27,10 @@ public class ToggleSwitch extends Parent {
 
     public BooleanProperty switchedOnProperty() {
         return switchedOn;
+    }
+
+    public boolean isSwitchOn() {
+        return switchedOnProperty().getValue();
     }
 
     public ToggleSwitch() {
@@ -56,8 +64,33 @@ public class ToggleSwitch extends Parent {
             animation.play();
         });
 
-        setOnMouseClicked(event -> {
-            switchedOn.set(!switchedOn.get());
-        });
+        setOnMouseClicked(
+            new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    switchedOn.set(!switchedOn.get());
+                    EventHandler<MouseEvent> handler = onActionProperty().get();
+                    if(handler != null) {
+                        onActionProperty().get().handle(event);
+                    }
+                }
+            }
+        );
+
+    }
+
+    // notice we use MouseEvent here only because you call from onMouseEvent, you can substitute any type you need
+    private ObjectProperty<EventHandler<MouseEvent>> propertyOnAction = new SimpleObjectProperty<EventHandler<MouseEvent>>();
+
+    public final ObjectProperty<EventHandler<MouseEvent>> onActionProperty() {
+        return propertyOnAction;
+    }
+
+    public final void setOnAction(EventHandler<MouseEvent> handler) {
+        propertyOnAction.set(handler);
+    }
+
+    public final EventHandler<MouseEvent> getOnAction() {
+        return propertyOnAction.get();
     }
 }

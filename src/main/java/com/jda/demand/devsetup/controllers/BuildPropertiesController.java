@@ -1,5 +1,6 @@
 package com.jda.demand.devsetup.controllers;
 
+import com.jda.demand.devsetup.properties.Preferences;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,6 +19,6 @@ public class BuildPropertiesController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        Preferences.getInstance().load();
     }
 }
