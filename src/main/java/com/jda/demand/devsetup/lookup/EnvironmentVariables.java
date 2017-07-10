@@ -8,32 +8,34 @@ import java.util.Map;
 
 public class EnvironmentVariables {
 
-    public static String getVariable(String key) {
-        return getInstance().getMap().get(key);
+    public  String getVariable(String key) {
+        return getMap().get(key);
     }
 
-    public static Map<String, String> getVariables() {
-        return getInstance().getMap();
+    public  Map<String, String> getVariables() {
+        return getMap();
     }
 
-    public Map<String, String> load(String filePath) throws IOException {
-        setMap(EnvironmentVariableFileParser.parseFile(filePath));
+    public Map<String, String> load(String filePath)  {
+        try {
+            setMap(EnvironmentVariableFileParser.parseFile(filePath));
+        } catch (IOException e){
+            throw new RuntimeException("Couldn't load Environment setup file");
+        }
         return getMap();
     }
 
 
-    private static EnvironmentVariables instance;
     private Map<String, String> map = new LinkedHashMap<>();
-
     private Map<String, String> getMap() {
         return map;
     }
-
     private void setMap(Map<String, String> map) {
         this.map = map;
     }
 
-    private static EnvironmentVariables getInstance() {
+    private static EnvironmentVariables instance;
+    public static EnvironmentVariables getInstance() {
         if (instance == null) {
             synchronized (EnvironmentVariables.class) {
                 if (instance == null) {

@@ -1,47 +1,37 @@
 package com.jda.demand.devsetup.services.commands;
 
+
+import org.apache.commons.exec.CommandLine;
+
 import java.io.File;
 
-public class Command {
-    private String commandName;
-    private Class<?> command;
-    private File workingDir;
+public abstract class Command extends CommandLine {
+    private StringBuilder command = new StringBuilder();
 
-    public Command(String commandName, Class<?> command, File WorkingDir) {
-        setCommand(command);
-        setCommandName(commandName);
-        setWorkingDir(getWorkingDir());
-    }
-
-    public Command(String commandName, Class<?> command, String workingDir) {
-        this(commandName, command, new File(workingDir));
-    }
-
-    public Command(String commandName, Class<?> command) {
-        this(commandName, command, new File("."));
-    }
-
-    public String getCommandName() {
-        return commandName;
-    }
-
-    public void setCommandName(String commandName) {
-        this.commandName = commandName;
-    }
-
-    public Class<?> getCommand() {
+    private StringBuilder getCommand() {
         return command;
     }
 
-    public void setCommand(Class<?> command) {
-        this.command = command;
+    public Command(String executable) {
+        super(executable);
+        getCommand().append(executable);
+        getCommand().append(" ");
     }
 
-    public File getWorkingDir() {
-        return workingDir;
+    @Override
+    public CommandLine addArgument(String command) {
+        super.addArgument(command);
+        getCommand().append(command);
+        getCommand().append(" ");
+        return this;
     }
 
-    public void setWorkingDir(File workingDir) {
-        this.workingDir = workingDir;
+
+     /* subclasses will override this method*/
+    public abstract File getWorkingDirectory();
+
+    @Override
+    public String toString() {
+        return getCommand().toString();
     }
 }

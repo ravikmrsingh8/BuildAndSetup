@@ -22,7 +22,7 @@ public class JarBuilderController implements Initializable {
     private String jarName;
     private DirectoryChooser dirChooser;
     private FileChooser fileChooser;
-    private File initialDirectory;
+
     @FXML
     private TableView<XFile> tableView;
     @FXML
@@ -45,7 +45,6 @@ public class JarBuilderController implements Initializable {
         super();
         setDirChooser(new DirectoryChooser());
         setFileChooser(new FileChooser());
-        setInitialDirectory(FileUtils.getUserDirectory());
     }
 
     public String getJarName() {
@@ -90,33 +89,24 @@ public class JarBuilderController implements Initializable {
         this.fileChooser = fileChooser;
     }
 
-    public File getInitialDirectory() {
-        return initialDirectory;
-    }
-
-    public void setInitialDirectory(File initialDirectory) {
-        this.initialDirectory = initialDirectory;
-    }
-
     //Event Handlers
     public void onAddFile() {
-
-        getFileChooser().setInitialDirectory(getInitialDirectory());
         List<File> allFiles = getFileChooser().showOpenMultipleDialog(null);
         if (allFiles == null || allFiles.isEmpty()) return;
-        //Remember directory, it will be used next time when we open Chooser window;
-        setInitialDirectory(allFiles.get(0).getParentFile());
+
+        /*Remember directory, it will be used next time when we open Chooser window; */
+        getFileChooser().setInitialDirectory(allFiles.get(0).getParentFile());
 
         showProcessing();
         new Thread(() -> addInTable(allFiles)).start();
     }
 
     public void onAddFolderButton() {
-        getDirChooser().setInitialDirectory(getInitialDirectory());
+
         File dir = getDirChooser().showDialog(null);
         if (dir == null) return;
         //Remember this directory, it will be used next time when we open Chooser window;
-        setInitialDirectory(dir);
+        getDirChooser().setInitialDirectory(dir);
         showProcessing();
         new Thread(() -> {
             Iterator<File> iterator = FileUtils.iterateFiles(dir, null, true);
@@ -139,7 +129,7 @@ public class JarBuilderController implements Initializable {
             return;
         }
 
-        setJarName(JarUtility.getValidJarName(getInputJarName()));
+        setJarName(JarUtility.getValidJarName(getInputJarName().getText()));
 
         PrepareOutput prepare = new PrepareOutput();
         prepare.setJarName(getJarName());

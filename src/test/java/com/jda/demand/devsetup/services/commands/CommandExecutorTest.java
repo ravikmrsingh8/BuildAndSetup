@@ -17,10 +17,6 @@ public class CommandExecutorTest extends TestCase {
     }
 
     public void testExecute() {
-        CommandExecutor.execute("Start Admin Server");
-        //CommandExecutor.execute("Start Admin Server");
-
-
         assertTrue(true);
     }
 }

@@ -28,7 +28,12 @@ public class BuildProperties {
         return properties.getProperty(key);
     }
 
-    public void load(String filePath) throws IOException {
-        properties.load(new FileReader(filePath));
+    public void load(String filePath) {
+        try {
+            properties.load(new FileReader(filePath));
+        } catch(IOException e) {
+            throw new RuntimeException("Couldn't load "+filePath);
+        }
+
     }
 }
