@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.jda.demand.devsetup.lookup.Lookup;
+import com.jda.demand.devsetup.utils.Constants;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
@@ -31,7 +33,14 @@ public class JarCreator extends Service<Void> {
             protected Void call() throws Exception {
                 if (!new File("com").exists()) return null;
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Running Jar exe ");
-                final String javaHome = System.getenv("JAVA_HOME");
+
+                String javaHome  = Lookup.getInstance().getEnvironmentVariables().get(Constants.ENV_JAVA_HOME);
+                if(javaHome == null) {
+                    javaHome = System.getenv(Constants.ENV_JAVA_HOME);
+                }
+                if (javaHome == null) {
+                    throw new RuntimeException("JAVA_HOME Not found");
+                }
                 String exe = "\"" + javaHome + "\\bin\\jar\"";
                 ProcessBuilder builder = new ProcessBuilder(exe, "cvf", getJarName(), "com");
                 builder.redirectErrorStream(true);

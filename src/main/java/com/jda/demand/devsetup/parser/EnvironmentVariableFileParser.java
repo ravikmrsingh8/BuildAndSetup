@@ -1,6 +1,7 @@
 package com.jda.demand.devsetup.parser;
 
 
+import com.jda.demand.devsetup.utils.Constants;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -26,6 +27,15 @@ public class EnvironmentVariableFileParser {
                 envMap.put(pair.getKey(), pair.getValue());
             }
         }
+
+        String SCPO_HOME = envMap.get(Constants.ENV_BUILD_ROOT);
+        String BUILD_ROOT = "%" + Constants.ENV_BUILD_ROOT + "%";
+        envMap.forEach((key, value)->{
+            if(value.contains(BUILD_ROOT)) {
+                envMap.put(key,value.replace(BUILD_ROOT, SCPO_HOME));
+            }
+        });
+        logger.log(Level.INFO, String.format("Environment Map %s", envMap));
         return envMap;
     }
 
@@ -38,7 +48,6 @@ public class EnvironmentVariableFileParser {
             StringTokenizer tok = new StringTokenizer(line.substring(3), "=");
             String key = tok.nextToken().trim();
             String value = tok.nextToken().trim();
-            logger.log(Level.INFO, String.format("[line:%d][%s=%s]", _line, key, value));
             return new Pair(key, value);
         }
         return null;

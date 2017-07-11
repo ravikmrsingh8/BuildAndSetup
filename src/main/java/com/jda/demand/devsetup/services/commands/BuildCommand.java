@@ -7,11 +7,11 @@ import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class AdminServerStartCommand extends Command {
-
-    private final String EXE = Constants.START_ADMIN_SERVER;
+public class BuildCommand extends Command {
+    private final String EXE = Constants.BUILD;
     private final String SCPO_HOME = Lookup.getInstance().getEnvironmentVariables().get(Constants.ENV_BUILD_ROOT);
-    public AdminServerStartCommand() {
+
+    public BuildCommand() {
         addArgument(EXE);
     }
 
@@ -20,10 +20,7 @@ public class AdminServerStartCommand extends Command {
         String _$ = File.separator;
         StringBuilder workingDirectory = new StringBuilder();
         workingDirectory.append(SCPO_HOME + _$);
-        workingDirectory.append(Constants.WEBLOGIC +_$);
-        workingDirectory.append(Constants.CONFIG + _$);
-        workingDirectory.append(Constants.BIN +_$);
-        workingDirectory.append(Constants.PLATFORM +_$);
+        workingDirectory.append(Constants.BUILD + _$);
         return new File(workingDirectory.toString());
     }
 

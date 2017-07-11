@@ -134,7 +134,7 @@ public class JarBuilderController implements Initializable {
         PrepareOutput prepare = new PrepareOutput();
         prepare.setJarName(getJarName());
         prepare.setOnFailed((WorkerStateEvent event) -> {
-            processOnError(Arrays.toString(prepare.getException().getStackTrace()));
+            processOnError(prepare.getException().getMessage());
         });
 
         prepare.setOnSucceeded((WorkerStateEvent event) -> {
@@ -147,7 +147,7 @@ public class JarBuilderController implements Initializable {
         JarCreator creator = new JarCreator();
         creator.setJarName(getJarName());
         creator.setOnFailed((WorkerStateEvent event) -> {
-            processOnError(Arrays.toString(creator.getException().getStackTrace()));
+            processOnError(creator.getException().getMessage());
         });
         creator.setOnSucceeded((WorkerStateEvent event) -> {
             getLabel().setText("Preparing Output");
@@ -157,7 +157,7 @@ public class JarBuilderController implements Initializable {
         FileCopier copier = new FileCopier();
         copier.setTableData(getTableView().getItems());
         copier.setOnFailed((WorkerStateEvent event) -> {
-            processOnError(Arrays.toString(copier.getException().getStackTrace()));
+            processOnError(copier.getException().getMessage());
         });
         copier.setOnSucceeded((WorkerStateEvent event) -> {
             getLabel().setText("Creating Jar");
@@ -169,7 +169,7 @@ public class JarBuilderController implements Initializable {
         scavenger.setOnFailed((WorkerStateEvent event) -> {
             closeProcessing();
             clearUI();
-            Dialogues.showErrorDialogue(Arrays.toString(scavenger.getException().getStackTrace()));
+            Dialogues.showErrorDialogue(scavenger.getException().getMessage());
         });
 
         scavenger.setOnSucceeded((WorkerStateEvent event) -> {
@@ -186,7 +186,7 @@ public class JarBuilderController implements Initializable {
 
         TableDataPopulator service = new TableDataPopulator(allFiles);
         service.setOnFailed((WorkerStateEvent event) -> {
-            Dialogues.showErrorDialogue(Arrays.toString(service.getException().getStackTrace()));
+            Dialogues.showErrorDialogue(service.getException().getMessage());
         });
         service.setOnSucceeded((WorkerStateEvent event) -> {
             getTableView().getItems().addAll(service.getValue());

@@ -1,14 +1,16 @@
 package com.jda.demand.devsetup.utils;
 
 public class Constants {
-    public final static String OUTPUT_FOLDER = "Output\\";
-
+    public final static String OUTPUT_FOLDER = "Output";
+    public final static String TEMP_FOLDER ="temp";
     //Preferences lookup
     public static final String PREFERENCES = "preferences.properties";
-    // keys for preferences.properties lookup
+    // keys for preferences.properties  & lookup variables
     public static final String CIS_HOME = "cis.home";
     public static final String ENV_FILE = "env.file.loc";
     public static final String LIC_FILE = "scpo.lic.file";
+    //Lookup variables
+    public static final String MAIN_APP = "MAIN_APP";
 
 
     //Build Options
@@ -31,7 +33,7 @@ public class Constants {
     public static final String SERVER_ADMIN_PORT = "SERVER_ADMIN_PORT";
     public static final String SERVER_STANDARD_PORT = "SERVER_STANDARD_PORT";
     public static final String SERVER_HOST_NAME = "SERVER_HOST_NAME";
-
+    public static final String LICENSE_FILE = "LICENSE_FILE";
 
     //Directories from scpo
     public static final String WEBLOGIC = "weblogic";
@@ -41,6 +43,10 @@ public class Constants {
     public static final String PLATFORM = "platform";
     public static final String SCPOWEB = "scpoweb";
     public static final String DATABASE = "database";
+    public static final String UTSOURCE = "utsource";
+    public static final String SOURCE = "source";
+    public static final String RESOURCES = "resources";
+    public static final String EAR = "ear";
 
 
     //EXECUTABLES
@@ -62,6 +68,7 @@ public class Constants {
     public static final String SET_CONFIG_CODE = "set_config_code.bat";
     public static final String SQL_PLUS = "sqlplus";
     public static final String SRE_CLEANUP_SQL = "Cleanup.sql";
+    public static final String BUILD = "build";
 
     //Schemas
     public static final String SCPOMGR = "SCPOMGR";
@@ -69,4 +76,6 @@ public class Constants {
 
     //JAR Properties
     public static final String DEFAULT_JAR_NAME = "Test.jar";
+
+
 }

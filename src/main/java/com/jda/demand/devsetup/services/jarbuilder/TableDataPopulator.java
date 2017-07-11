@@ -39,7 +39,6 @@ public class TableDataPopulator extends Service<ObservableList<XFile>> {
                     } else {
                         xFile.setPath(JarUtility.getPathAfterScpo(file));
                     }
-                    System.out.println(xFile.getPath());
                     obFiles.add(xFile);
                 }
                 return obFiles;

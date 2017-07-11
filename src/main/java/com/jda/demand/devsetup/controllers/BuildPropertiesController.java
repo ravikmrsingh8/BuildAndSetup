@@ -1,8 +1,10 @@
 package com.jda.demand.devsetup.controllers;
 
-import com.jda.demand.devsetup.lookup.BuildProperties;
-import com.jda.demand.devsetup.lookup.EnvironmentVariables;
+import com.jda.demand.devsetup.lookup.Lookup;
 import com.jda.demand.devsetup.lookup.Preferences;
+import com.jda.demand.devsetup.services.commands.BuildCommand;
+import com.jda.demand.devsetup.services.commands.Command;
+import com.jda.demand.devsetup.services.commands.CommandExecutor;
 import com.jda.demand.devsetup.utils.Constants;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,12 +15,14 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.net.URL;
-import java.util.List;
-import java.util.Properties;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BuildPropertiesController implements Initializable {
 
+    Logger logger = Logger.getLogger(getClass().getName());
     @FXML
     private Button buildButton;
     @FXML
@@ -29,7 +33,7 @@ public class BuildPropertiesController implements Initializable {
     @FXML
     private TextField envFile;
     @FXML
-    private TextField builPropFile;
+    private TextField buildPropFile;
     @FXML
     private TextField adminPort;
     @FXML
@@ -113,12 +117,12 @@ public class BuildPropertiesController implements Initializable {
         this.envFile = envFile;
     }
 
-    public TextField getBuilPropFile() {
-        return builPropFile;
+    public TextField getBuildPropFile() {
+        return buildPropFile;
     }
 
-    public void setBuilPropFile(TextField builPropFile) {
-        this.builPropFile = builPropFile;
+    public void setBuildPropFile(TextField buildPropFile) {
+        this.buildPropFile = buildPropFile;
     }
 
     public TextField getAdminPort() {
@@ -174,50 +178,80 @@ public class BuildPropertiesController implements Initializable {
     }
 
     public void onBuildButton() {
-
+        Command command = new BuildCommand();
+        if(getClean().isSelected())command.addArgument(Constants.CLEAN);
+        if(getSystem().isSelected())command.addArgument(Constants.SYSTEM);
+        if(getCustomize().isSelected())command.addArgument(Constants.CUSTOMIZE);
+        if(getBeaCreateServer().isSelected())command.addArgument(Constants.BEA_CREATE_SERVER);
+        if(getDemandSrc().isSelected())command.addArgument(Constants.DEMAND_SRC);
+        if(getScscSrc().isSelected())command.addArgument(Constants.SCSC_SRC);
+        String findBugOff = getFindBugs().isSelected() ? "false" : "true";
+        Lookup.getInstance().getEnvironmentVariables().put(Constants.ENV_FINDBUGS_OFF, findBugOff);
+        new CommandExecutor().setCommand(command).execute();
     }
 
     public void onSaveButton() {
+        Preferences preferences = Preferences.getInstance();
+        Map<String, Object> map = Lookup.getInstance().getVariables();
+        logger.log(Level.INFO, String.format("Lookup Variables %s",Lookup.getInstance().getVariables()));
 
+        preferences.setProperty(Constants.CIS_HOME, (String)map.get(Constants.CIS_HOME));
+        preferences.setProperty(Constants.ENV_FILE, (String)map.get(Constants.ENV_FILE));
+        preferences.setProperty(Constants.LIC_FILE, (String)map.get(Constants.LIC_FILE));
+        preferences.save();
+    }
+    public void onCISHomeInput(){
+        System.out.println(getCisHome().getText());
+        Lookup.getInstance().getVariables().put(Constants.CIS_HOME,getCisHome().getText());
     }
 
     public void onBrowseLicFile() {
         File file = new FileChooser().showOpenDialog(null);
-        getLicFile().setText(file.getAbsolutePath());
-        Preferences.getInstance().load();
-        Preferences.getInstance().setProperty(Constants.LIC_FILE, getLicFile().getText());
+        if(file != null) {
+            getLicFile().setText(file.getAbsolutePath());
+            Lookup.getInstance().getVariables().put(Constants.LIC_FILE,getLicFile().getText());
+        }
     }
+
 
     public void onBrowseEnvFile() {
         File file = new FileChooser().showOpenDialog(null);
+        if (file == null) return;
         getEnvFile().setText(file.getAbsolutePath());
-        EnvironmentVariables.getInstance().load(file.getAbsolutePath());
-        String buildPropFilePath = EnvironmentVariables.getInstance().getVariable(Constants.ENV_BUILD_PROPS);
-        if (buildPropFilePath != null) {
-            initializeBuildProperties(buildPropFilePath);
-        }
+        Lookup.getInstance().getVariables().put(Constants.ENV_FILE, getEnvFile().getText());
+        Lookup.getInstance().load(file.getAbsolutePath());
+        initializeDependentProperties(Lookup.getInstance());
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         Preferences preferences = Preferences.getInstance();
-        preferences.load();
-        String envFilePath = preferences.getProperty(Constants.ENV_FILE);
-        if (envFilePath != null) {
-            getEnvFile().setText(envFilePath);
-            EnvironmentVariables.getInstance().load(envFilePath);
-            String buildPropFilePath = EnvironmentVariables.getInstance().getVariable(Constants.ENV_BUILD_PROPS);
-            if (buildPropFilePath != null) {
-                initializeBuildProperties(buildPropFilePath);
+        if(preferences.isExist()) {
+            logger.log(Level.INFO, "Preferences found");
+            preferences.load();
+            String envFile = preferences.getProperty(Constants.ENV_FILE);
+            logger.log(Level.INFO, "ENV_FILE"+envFile);
+            if( envFile != null && !envFile.isEmpty()) {
+                Lookup.getInstance().load(envFile);
+                getEnvFile().setText(envFile);
+                getCisHome().setText((String)Lookup.getInstance().getVariables().get(Constants.CIS_HOME));
+                getLicFile().setText((String)Lookup.getInstance().getVariables().get(Constants.LIC_FILE));
+                initializeDependentProperties(Lookup.getInstance());
             }
         }
+
+        //add ValueChangeListener for cisHome Text Field
+        getCisHome().textProperty().addListener((observable, oldValue, newValue) -> {
+            logger.log(Level.INFO, String.format("CIS HOME %s",newValue));
+            Lookup.getInstance().getVariables().put(Constants.CIS_HOME,newValue);
+        });
     }
 
-    private void initializeBuildProperties(String buildPropFilePath) {
-        getBuilPropFile().setText(buildPropFilePath);
-        BuildProperties properties = BuildProperties.getInstance();
-        properties.load(buildPropFilePath);
-        getAdminPort().setText(properties.getProperty(Constants.SERVER_ADMIN_PORT));
-        getWebServerPort().setText(properties.getProperty(Constants.SERVER_STANDARD_PORT));
+    private void initializeDependentProperties(Lookup lookup) {
+        getBuildPropFile().setText(lookup.getEnvironmentVariables().get(Constants.ENV_BUILD_PROPS));
+        getAdminPort().setText(lookup.getBuildProperties().getProperty(Constants.SERVER_ADMIN_PORT));
+        getWebServerPort().setText(lookup.getBuildProperties().getProperty(Constants.SERVER_STANDARD_PORT));
+        getLicFile().setText(lookup.getBuildProperties().getProperty(Constants.LICENSE_FILE));
     }
 }

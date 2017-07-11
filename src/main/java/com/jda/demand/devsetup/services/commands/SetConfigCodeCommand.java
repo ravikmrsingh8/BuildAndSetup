@@ -1,22 +1,15 @@
 package com.jda.demand.devsetup.services.commands;
 
-import com.jda.demand.devsetup.lookup.BuildProperties;
-import com.jda.demand.devsetup.lookup.EnvironmentVariables;
+import com.jda.demand.devsetup.lookup.Lookup;
 import com.jda.demand.devsetup.utils.Constants;
 
 import java.io.File;
 
 public class SetConfigCodeCommand extends Command {
     private final String EXE = Constants.SET_CONFIG_CODE;
-    private final String ORACLE_NET_SERVICE = BuildProperties.getInstance().getProperty(Constants.ORACLE_NET_SERVICE);
-
+    private final String ORACLE_NET_SERVICE = Lookup.getInstance().getBuildProperties().getProperty(Constants.ORACLE_NET_SERVICE);
+    private final String SCPO_HOME = Lookup.getInstance().getEnvironmentVariables().get(Constants.ENV_BUILD_ROOT);
     public SetConfigCodeCommand() {
-        super("cmd");
-        addArgument("/C");
-        addArgument("start");
-        addArgument("Set Config Code");
-        addArgument("cmd.exe");
-        addArgument("/K");
         addArgument(EXE);
         addArgument(Constants.WWFMGR);
         addArgument(Constants.WWFMGR + "@" + ORACLE_NET_SERVICE);
@@ -28,7 +21,7 @@ public class SetConfigCodeCommand extends Command {
     public File getWorkingDirectory() {
         String _$ = File.separator;
         StringBuilder workingDirectory = new StringBuilder();
-        workingDirectory.append(EnvironmentVariables.getInstance().getVariable(Constants.ENV_BUILD_ROOT) + _$);
+        workingDirectory.append(SCPO_HOME + _$);
         workingDirectory.append(Constants.WEBLOGIC + _$);
         workingDirectory.append(Constants.CONFIG + _$);
         workingDirectory.append(Constants.DATABASE + _$);
