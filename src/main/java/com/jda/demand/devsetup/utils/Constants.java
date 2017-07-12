@@ -55,7 +55,7 @@ public class Constants {
 
     public static final String START_NODE_POOL = "startNodePoolManager.cmd";
     public static final String BASIC_NODE_POOL = "Basic";
-    public static final String RMI_NODE_POOL = "Rmi";
+    public static final String RMI_NODE_POOL = "RMI";
 
     public static final String LAUNCH = "launch.bat";
     public static final String CIS_AGENT_PY = "runCISAgent.py";
@@ -76,6 +76,7 @@ public class Constants {
 
     //JAR Properties
     public static final String DEFAULT_JAR_NAME = "Test.jar";
+    public static final String ROOT_PACKAGE = "ROOT_PACKAGE";
 
 
 }

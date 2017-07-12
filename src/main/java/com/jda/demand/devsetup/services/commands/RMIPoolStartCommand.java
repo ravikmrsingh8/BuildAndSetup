@@ -4,7 +4,6 @@ import com.jda.demand.devsetup.lookup.Lookup;
 import com.jda.demand.devsetup.utils.Constants;
 
 import java.io.File;
-import java.util.Map;
 
 public class RMIPoolStartCommand extends Command {
     private final String EXE = Constants.START_NODE_POOL;

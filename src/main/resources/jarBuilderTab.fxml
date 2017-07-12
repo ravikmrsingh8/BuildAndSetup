@@ -92,7 +92,7 @@
                                 </font>
                             </Button>
                             <Button fx:id="createButton" onAction="#onCreateButton" mnemonicParsing="true" style="-fx-background-insets: 0,0,-1,0;"
-                                    styleClass="primary" text="_Create JAR">
+                                    styleClass="primary" text="_Create ">
                                 <font>
                                     <Font size="14.0"/>
                                 </font>

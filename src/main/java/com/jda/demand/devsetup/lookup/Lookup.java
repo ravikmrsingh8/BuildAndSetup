@@ -41,34 +41,15 @@ public class Lookup {
         return variables;
     }
 
-    //Load lookup if there is already preferences
-    public void load() {
-        logger.log(Level.INFO, "Loading Properties file");
-        Preferences preferences = Preferences.getInstance();
-        if(preferences.isExist()) {
-            preferences.load();
-        }
-        String envFile = Preferences.getInstance().getProperty(Constants.ENV_FILE);
-
-        load(envFile);
-    }
-
     //Load lookup based on provided env file
     public void load(final String envfile) {
         try {
+            getVariables().put(Constants.ENV_FILE,envfile);
             setEnvironmentVariables(EnvironmentVariableFileParser.parseFile(envfile));
             String buildPropFilePath = getEnvironmentVariables().get(Constants.ENV_BUILD_PROPS);
             logger.log(Level.INFO, String.format("Loading Build Properties file at %s",buildPropFilePath));
             getBuildProperties().load(new FileReader(buildPropFilePath));
             getVariables().put(Constants.LIC_FILE,getBuildProperties().getProperty(Constants.LICENSE_FILE));
-
-            if(Preferences.getInstance().isExist()) {
-                Preferences.getInstance().load();
-                getVariables().put(Constants.ENV_FILE, Preferences.getInstance().getProperty(Constants.ENV_FILE));
-                getVariables().put(Constants.CIS_HOME,Preferences.getInstance().getProperty(Constants.CIS_HOME));
-                getVariables().put(Constants.LIC_FILE,Preferences.getInstance().getProperty(Constants.LIC_FILE));
-
-            }
             logger.log(Level.INFO, getBuildProperties().toString());
 
         } catch (IOException e) {

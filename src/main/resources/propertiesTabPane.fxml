@@ -34,8 +34,8 @@
                                                         <Font size="14.0" />
                                                     </font>
                                                 </Label>
-                                                <TextField fx:id="cisHome"  promptText="Path To CIS-SDK\bin" >
-                                                    <font><Font size ="14.0"></Font></font>
+                                                <TextField  fx:id="cisHome"  promptText="Path To CIS-SDK\bin" >
+                                                    <font><Font size ="13.0"></Font></font>
                                                 </TextField>
                                             </children>
                                         </VBox>
@@ -49,7 +49,7 @@
                                                 <HBox spacing="5.0">
                                                     <children>
                                                         <TextField disable="false" fx:id="envFile" prefWidth="391.0" >
-                                                            <font><Font size ="14.0"></Font></font>
+                                                            <font><Font size ="13.0"></Font></font>
                                                         </TextField>
                                                         <ImageView onMouseClicked="#onBrowseEnvFile" fx:id="batFileChooserButton" fitHeight="31.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                                                             <image>
@@ -71,7 +71,7 @@
                                                 <HBox spacing="5.0">
                                                     <children>
                                                         <TextField  disable="false" fx:id="licFile" prefWidth="391.0" >
-                                                            <font><Font size ="14.0"></Font></font>
+                                                            <font><Font size ="13.0"></Font></font>
                                                         </TextField>
                                                         <ImageView onMouseClicked="#onBrowseLicFile" fitHeight="31.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                                                             <image>
@@ -84,7 +84,7 @@
                                         </VBox>
                                         <HBox prefHeight="51.0" prefWidth="416.0">
                                             <children>
-                                                <CheckBox fx:id ="findBugs" mnemonicParsing="false" prefHeight="46.0" prefWidth="168.0" selected="true" text="Find Bug ">
+                                                <CheckBox fx:id ="findBugs" mnemonicParsing="false" prefHeight="46.0" prefWidth="168.0"  text="Find Bug ">
                                                     <font>
                                                         <Font size="14.0" />
                                                     </font>
@@ -132,7 +132,7 @@
                                                 <HBox spacing="5.0">
                                                     <children>
                                                         <TextField fx:id="buildPropFile" disable="false" prefWidth="391.0" >
-                                                            <font><Font size ="14.0"></Font></font>
+                                                            <font><Font size ="13.0"></Font></font>
                                                         </TextField>
 
                                                     </children>

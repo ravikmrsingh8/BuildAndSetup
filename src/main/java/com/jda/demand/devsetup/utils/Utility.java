@@ -4,14 +4,17 @@ import com.jda.demand.devsetup.lookup.Lookup;
 
 import java.io.File;
 
-public class JarUtility {
+public class Utility {
 
     public static String getPathWithPackage(File javaFile) {
         String file = javaFile.getAbsolutePath();
         String _$ = File.separator;
         String classesDir = _$ + Constants.CLASSES + _$;
-        System.out.println(file.substring(file.indexOf(classesDir) + classesDir.length()));
-        return file.substring(file.indexOf(classesDir) + classesDir.length());
+        String filePathWithPackage = file.substring(file.indexOf(classesDir) + classesDir.length());
+        String rootPackage = filePathWithPackage.substring(0,filePathWithPackage.indexOf(_$));
+        Lookup.getInstance().getVariables().put(Constants.ROOT_PACKAGE,rootPackage);
+        return filePathWithPackage;
+
     }
 
     public static String getPathAfterScpo(File file) {
@@ -40,5 +43,12 @@ public class JarUtility {
         if ((input != null) && (!input.trim().isEmpty())) jarName = input;
         if (!jarName.endsWith(".jar")) jarName += ".jar";
         return jarName;
+    }
+    public static boolean isSet(final String variable) {
+        return variable != null && !variable.isEmpty();
+    }
+
+    public static boolean isLookupVariableSet(final String lookupVariabe) {
+        return isSet((String)Lookup.getInstance().getVariables().get(lookupVariabe));
     }
 }

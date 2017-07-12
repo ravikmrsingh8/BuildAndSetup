@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import com.jda.demand.devsetup.lookup.Lookup;
 import com.jda.demand.devsetup.utils.Constants;
+import com.jda.demand.devsetup.utils.Utility;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
@@ -31,8 +32,8 @@ public class JarCreator extends Service<Void> {
         return new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                if (!new File("com").exists()) return null;
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Running Jar exe ");
+                String rootPackage = (String)Lookup.getInstance().getVariables().get(Constants.ROOT_PACKAGE);
+                if(rootPackage == null || rootPackage.isEmpty()) return null;
 
                 String javaHome  = Lookup.getInstance().getEnvironmentVariables().get(Constants.ENV_JAVA_HOME);
                 if(javaHome == null) {
@@ -41,8 +42,10 @@ public class JarCreator extends Service<Void> {
                 if (javaHome == null) {
                     throw new RuntimeException("JAVA_HOME Not found");
                 }
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Running Jar exe ");
+
                 String exe = "\"" + javaHome + "\\bin\\jar\"";
-                ProcessBuilder builder = new ProcessBuilder(exe, "cvf", getJarName(), "com");
+                ProcessBuilder builder = new ProcessBuilder(exe, "cvf", getJarName(),"-C",Constants.OUTPUT_FOLDER, rootPackage);
                 builder.redirectErrorStream(true);
                 StringBuilder result = new StringBuilder();
 
@@ -52,6 +55,7 @@ public class JarCreator extends Service<Void> {
                 while ((line = r.readLine()) != null) {
                     result.append(line + "\n");
                 }
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, result.toString());
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Create Jar done  ");
                 return null;
             }

@@ -35,12 +35,8 @@ public class ManagedServerStartCommand extends Command {
     @Override
     public Map<String, String> getEnvironmentVariables() {
         Map<String, String> envMap = new LinkedHashMap<>();
-        System.getenv().forEach((key, value) -> {
-            envMap.put(key, value);
-        });
-        Lookup.getInstance().getEnvironmentVariables().forEach((key, value) -> {
-            envMap.put(key, value);
-        });
+        envMap.putAll(System.getenv());
+        envMap.putAll(Lookup.getInstance().getEnvironmentVariables());
         return envMap;
     }
 }

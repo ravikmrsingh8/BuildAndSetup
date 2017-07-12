@@ -4,6 +4,7 @@ import com.jda.demand.devsetup.utils.Constants;
 
 import java.io.*;
 import java.util.Properties;
+import java.util.Set;
 
 public class Preferences {
 
@@ -55,7 +56,9 @@ public class Preferences {
     public String getProperty(String key) {
         return properties.getProperty(key);
     }
-
+    public Set<String> getPropertiesNames() {
+        return properties.stringPropertyNames();
+    }
     public void setProperty(String key, String value) {
         properties.setProperty(key, value);
     }

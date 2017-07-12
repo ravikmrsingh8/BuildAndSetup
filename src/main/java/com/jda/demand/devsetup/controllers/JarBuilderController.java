@@ -1,8 +1,10 @@
 package com.jda.demand.devsetup.controllers;
 
+import com.jda.demand.devsetup.lookup.Lookup;
 import com.jda.demand.devsetup.services.jarbuilder.*;
 import com.jda.demand.devsetup.components.Dialogues;
-import com.jda.demand.devsetup.utils.JarUtility;
+import com.jda.demand.devsetup.utils.Constants;
+import com.jda.demand.devsetup.utils.Utility;
 import com.jda.demand.devsetup.utils.XFile;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.fxml.FXML;
@@ -93,10 +95,8 @@ public class JarBuilderController implements Initializable {
     public void onAddFile() {
         List<File> allFiles = getFileChooser().showOpenMultipleDialog(null);
         if (allFiles == null || allFiles.isEmpty()) return;
-
         /*Remember directory, it will be used next time when we open Chooser window; */
         getFileChooser().setInitialDirectory(allFiles.get(0).getParentFile());
-
         showProcessing();
         new Thread(() -> addInTable(allFiles)).start();
     }
@@ -129,7 +129,7 @@ public class JarBuilderController implements Initializable {
             return;
         }
 
-        setJarName(JarUtility.getValidJarName(getInputJarName().getText()));
+        setJarName(Utility.getValidJarName(getInputJarName().getText()));
 
         PrepareOutput prepare = new PrepareOutput();
         prepare.setJarName(getJarName());
@@ -138,7 +138,6 @@ public class JarBuilderController implements Initializable {
         });
 
         prepare.setOnSucceeded((WorkerStateEvent event) -> {
-            new Scavenger(getJarName()).start();
             closeProcessing();
             clearUI();
             Dialogues.showInformationDialogue("Process Completed!");
@@ -176,7 +175,6 @@ public class JarBuilderController implements Initializable {
             copier.start();
             getLabel().setText("Copying files..");
         });
-
         scavenger.start();
         showProcessing();
         getLabel().setText("Cleaning up ..");
@@ -206,6 +204,7 @@ public class JarBuilderController implements Initializable {
     private void clearUI() {
         getInputJarName().clear();
         getTableView().getItems().clear();
+        Lookup.getInstance().getVariables().put(Constants.ROOT_PACKAGE,"");
     }
 
     private void showProcessing() {

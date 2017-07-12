@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.jda.demand.devsetup.lookup.Lookup;
 import com.jda.demand.devsetup.utils.Constants;
 import javafx.concurrent.Service;
 import org.apache.commons.io.FileUtils;
@@ -39,21 +40,24 @@ public class PrepareOutput extends Service<Void> {
             @Override
             protected Void call() throws Exception {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Preparing Output folder ");
-                File outputDir = new File(Constants.OUTPUT_FOLDER);
-                if (outputDir.exists()) {
-                    FileUtils.cleanDirectory(outputDir);
-                }
+
+                /*if jar file exist copy to Output folder and delete jar file*/
                 File jarFile = new File(getJarName());
-                File earDir = new File("ear");
-                if (outputDir.exists() || outputDir.mkdir()) {
-                    if (earDir.exists())
-                        FileUtils.copyDirectory(earDir, new File(Constants.OUTPUT_FOLDER + "ear/"));
-                    if (jarFile.exists())
-                        FileUtils.copyFileToDirectory(jarFile, new File(Constants.OUTPUT_FOLDER));
-                    openFolder(new File(Constants.OUTPUT_FOLDER));
-                } else {
-                    throw new RuntimeException("Output folder not created");
+                if (jarFile.exists()) {
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Copying jar in Output folder ");
+                    FileUtils.copyFileToDirectory(jarFile, new File(Constants.OUTPUT_FOLDER));
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Deleting jar from Current folder ");
+                    FileUtils.deleteQuietly(jarFile);
                 }
+                /* delete copied class files in Output Folder */
+                String rootPackage = (String)Lookup.getInstance().getVariables().get(Constants.ROOT_PACKAGE);
+                if(rootPackage != null && !rootPackage.isEmpty()) {
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Deleting class files from  Output folder ");
+                    rootPackage = Constants.OUTPUT_FOLDER + File.separator + rootPackage;
+                    FileUtils.deleteQuietly(new File(rootPackage));
+                }
+
+                openFolder(new File(Constants.OUTPUT_FOLDER));
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Preparing Output done ");
                 return null;
             }

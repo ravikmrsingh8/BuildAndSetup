@@ -12,12 +12,13 @@ public class SRENodeCleanupCommand extends Command {
     public SRENodeCleanupCommand() {
         addArgument(EXE);
         addArgument(Constants.WWFMGR + "/" + Constants.WWFMGR + "@" + ORACLE_NET_SERVICE);
-        addArgument("@" + Constants.SRE_CLEANUP_SQL);
+        addArgument("@" +Constants.SRE_CLEANUP_SQL );
     }
 
 
     @Override
     public File getWorkingDirectory() {
-        return new File(".");
+        String classPath = getClass().getResource("/").getPath();
+        return new File(classPath);
     }
 }

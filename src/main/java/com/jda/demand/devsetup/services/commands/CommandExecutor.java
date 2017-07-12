@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 
 public class CommandExecutor {
-    Logger logger = Logger.getLogger(getClass().getName());
+    private Logger logger ;
     private Executor executor;
     private Map<String, String> environment;
     private Command command;
@@ -41,7 +41,16 @@ public class CommandExecutor {
         return command;
     }
 
+    public Logger getLogger() {
+        return logger;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
+
     public CommandExecutor() {
+        setLogger(Logger.getLogger(getClass().getName()));
         setCommand(null);
         setEnvironment(Lookup.getInstance().getEnvironmentVariables());
         setExecutor(new DefaultExecutor());
@@ -54,7 +63,7 @@ public class CommandExecutor {
         } catch (Exception e) {
             throw new RuntimeException("Command couldn't run", e);
         }
-        logger.log(Level.INFO, String.format("Running %s",getCommand().toString()));
-        return command.toString();
+        getLogger().log(Level.INFO, String.format("Running %s",getCommand().toString()));
+        return getCommand().toString();
     }
 }

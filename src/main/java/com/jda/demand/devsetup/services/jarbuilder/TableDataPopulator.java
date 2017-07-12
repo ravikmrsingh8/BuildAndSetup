@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.jda.demand.devsetup.utils.JarUtility;
+import com.jda.demand.devsetup.utils.Constants;
+import com.jda.demand.devsetup.utils.Utility;
 import com.jda.demand.devsetup.utils.XFile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,9 +36,9 @@ public class TableDataPopulator extends Service<ObservableList<XFile>> {
                     xFile.setAbsolutePath(file.getAbsolutePath());
 
                     if (file.getAbsolutePath().endsWith(".class")) {
-                        xFile.setPath(JarUtility.getPathWithPackage(file));
+                        xFile.setPath(Constants.OUTPUT_FOLDER+File.separator+Utility.getPathWithPackage(file));
                     } else {
-                        xFile.setPath(JarUtility.getPathAfterScpo(file));
+                        xFile.setPath(Constants.OUTPUT_FOLDER+File.separator+Utility.getPathAfterScpo(file));
                     }
                     obFiles.add(xFile);
                 }

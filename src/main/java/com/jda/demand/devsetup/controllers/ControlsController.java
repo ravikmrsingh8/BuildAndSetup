@@ -4,6 +4,7 @@ import com.jda.demand.devsetup.components.ToggleSwitch;
 import com.jda.demand.devsetup.lookup.Lookup;
 import com.jda.demand.devsetup.services.commands.*;
 import com.jda.demand.devsetup.utils.Constants;
+import com.jda.demand.devsetup.utils.Utility;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,10 +13,10 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import java.net.URL;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class ControlsController implements Initializable {
+
 
     @FXML
     private ToggleSwitch adminServer;
@@ -41,10 +42,8 @@ public class ControlsController implements Initializable {
     @FXML
     private Hyperlink hyperlinkURL;
 
-
-
-    private Properties properties;
-
+    @FXML
+    private Lookup lookup;
     public TextFlow getCommandTextFlow() {
         return commandTextFlow;
     }
@@ -87,15 +86,6 @@ public class ControlsController implements Initializable {
     }
 
 
-
-    public Properties getProperties() {
-        return properties;
-    }
-
-    public void setProperties(Properties properties) {
-        this.properties = properties;
-    }
-
     public Hyperlink getHyperlinkURL() {
         return hyperlinkURL;
     }
@@ -104,15 +94,24 @@ public class ControlsController implements Initializable {
         this.hyperlinkURL = hyperlinkURL;
     }
 
+    public Lookup getLookup() {
+        return lookup;
+    }
+
+    public void setLookup(Lookup lookup) {
+        this.lookup = lookup;
+    }
+
     public void onAdminServerToggleSwitch() {
-        resetLastExecutedCommand();
+        if(!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         if (getAdminServer().isSwitchOn()) {
+            resetLastExecutedCommand();
             String command = getCommandExecutor().setCommand(new AdminServerStartCommand()).execute();
             getCommandText().setText(command);
             getCommandTextFlow().setVisible(true);
 
-            String ADMIN_PORT = getProperties().getProperty(Constants.SERVER_ADMIN_PORT);
-            String HOST_NAME = getProperties().getProperty(Constants.SERVER_HOST_NAME);
+            String ADMIN_PORT = getLookup().getBuildProperties().getProperty(Constants.SERVER_ADMIN_PORT);
+            String HOST_NAME = getLookup().getBuildProperties().getProperty(Constants.SERVER_HOST_NAME);
             String url = "http://"+HOST_NAME+":"+ADMIN_PORT+"/console";
             getStatusText().setText("Admin Server Running at ");
             getHyperlinkURL().setText(url);
@@ -120,14 +119,15 @@ public class ControlsController implements Initializable {
     }
 
     public void onWebServerToggleSwitch() {
-        resetLastExecutedCommand();
+        if(!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         if (getWebServer().isSwitchOn()) {
+            resetLastExecutedCommand();
             String command = getCommandExecutor().setCommand(new ManagedServerStartCommand()).execute();
             getCommandText().setText(command);
             getCommandTextFlow().setVisible(true);
 
-            String WEB_SERVER_PORT = getProperties().getProperty(Constants.SERVER_STANDARD_PORT);
-            String HOST_NAME = getProperties().getProperty(Constants.SERVER_HOST_NAME);
+            String WEB_SERVER_PORT = getLookup().getBuildProperties().getProperty(Constants.SERVER_STANDARD_PORT);
+            String HOST_NAME = getLookup().getBuildProperties().getProperty(Constants.SERVER_HOST_NAME);
             String url = "http://"+HOST_NAME+":"+WEB_SERVER_PORT+"/";
             getStatusText().setText("Web Server Running at ");
             getHyperlinkURL().setText(url);
@@ -135,8 +135,9 @@ public class ControlsController implements Initializable {
     }
 
     public void onCisAgentToggleSwitch() {
-        resetLastExecutedCommand();
+        if(!Utility.isLookupVariableSet(Constants.CIS_HOME)) return;
         if (getCisAgent().isSwitchOn()) {
+            resetLastExecutedCommand();
             String command = getCommandExecutor().setCommand(new CISAgentStartCommand()).execute();
             getCommandText().setText(command);
             getCommandTextFlow().setVisible(true);
@@ -144,8 +145,9 @@ public class ControlsController implements Initializable {
     }
 
     public void onSSOServerToggleSwitch() {
-        resetLastExecutedCommand();
+        if(!Utility.isLookupVariableSet(Constants.CIS_HOME)) return;
         if (getSsoServer().isSwitchOn()) {
+            resetLastExecutedCommand();
             String command = getCommandExecutor().setCommand(new SSOServerStartCommand()).execute();
             getCommandText().setText(command);
             getCommandTextFlow().setVisible(true);
@@ -153,8 +155,9 @@ public class ControlsController implements Initializable {
     }
 
     public void onBasicPoolToggleSwitch() {
-        resetLastExecutedCommand();
+        if(!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         if (getBasicPool().isSwitchOn()) {
+            resetLastExecutedCommand();
             String command = getCommandExecutor().setCommand(new BasicNodePoolStartCommand()).execute();
             getCommandText().setText(command);
             getCommandTextFlow().setVisible(true);
@@ -162,8 +165,9 @@ public class ControlsController implements Initializable {
     }
 
     public void onRMIPoolToggleSwitch() {
-        resetLastExecutedCommand();
+        if(!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         if (getRmiPool().isSwitchOn()) {
+            resetLastExecutedCommand();
             String command = getCommandExecutor().setCommand(new RMIPoolStartCommand()).execute();
             getCommandText().setText(command);
             getCommandTextFlow().setVisible(true);
@@ -171,6 +175,7 @@ public class ControlsController implements Initializable {
     }
 
     public void onInstallButton() {
+        if(!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         resetLastExecutedCommand();
         String command = getCommandExecutor().setCommand(new InstallLicenseCommand()).execute();
         getCommandText().setText(command);
@@ -178,6 +183,7 @@ public class ControlsController implements Initializable {
     }
 
     public void onRunScpoTaskButton() {
+        if(!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         resetLastExecutedCommand();
         String command = getCommandExecutor().setCommand(new RunScpoTaskCommand()).execute();
         getCommandText().setText(command);
@@ -185,6 +191,7 @@ public class ControlsController implements Initializable {
     }
 
     public void onSetConfigCodeButton() {
+        if(!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         resetLastExecutedCommand();
         String command = getCommandExecutor().setCommand(new SetConfigCodeCommand()).execute();
         getCommandText().setText(command);
@@ -192,6 +199,7 @@ public class ControlsController implements Initializable {
     }
 
     public void onSRECleanupButton() {
+        if(!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         resetLastExecutedCommand();
         String command = getCommandExecutor().setCommand(new SRENodeCleanupCommand()).execute();
         getCommandText().setText(command);
@@ -201,7 +209,7 @@ public class ControlsController implements Initializable {
 
     public void onHyperLinkURLClick() {
 
-        Application application =(Application) Lookup.getInstance().getVariables().get(Constants.MAIN_APP);
+        Application application =(Application) getLookup().getVariables().get(Constants.MAIN_APP);
         application.getHostServices().showDocument(getHyperlinkURL().getText());
     }
     private void resetLastExecutedCommand() {
@@ -212,6 +220,6 @@ public class ControlsController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setProperties(Lookup.getInstance().getBuildProperties());
+        lookup =Lookup.getInstance();
     }
 }
