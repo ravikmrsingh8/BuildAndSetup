@@ -107,9 +107,7 @@ public class BuildPropertiesController implements Initializable {
     }
 
 
-    public void setSystem(CheckBox system) {
-        this.system = system;
-    }
+
 
     public Logger getLogger() {
         return logger;
@@ -173,33 +171,23 @@ public class BuildPropertiesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setLookup(Lookup.getInstance());
         setLogger(Logger.getLogger(getClass().getName()));
+        setLookup(Lookup.getInstance());
+        //update UI according to preferences
+        getLookup().getVariables().forEach((key, value) -> {
+            if (Constants.CIS_HOME.equals(key)) getCisHome().setText((String) value);
+            if (Constants.ENV_FILE.equals(key)) getEnvFile().setText((String) value);
+            if (Constants.LIC_FILE.equals(key)) getLicFile().setText((String) value);
+        });
 
-        Preferences preferences = Preferences.getInstance();
-        if (preferences.isExist()) {
-            getLogger().log(Level.INFO, "Preferences found");
-            preferences.load();
-            preferences.getPropertiesNames().forEach((key)-> {
-                getLookup().getVariables().put(key, preferences.getProperty(key));
-                getLogger().log(Level.INFO, String.format("{%s : %s}",key, preferences.getProperty(key)));
-            });
-
-            //update UI according to preferences
-            getLookup().getVariables().forEach((key, value)->{
-                if (Constants.CIS_HOME.equals(key)) getCisHome().setText((String) value);
-                if (Constants.ENV_FILE.equals(key)) getEnvFile().setText((String) value);
-                if (Constants.LIC_FILE.equals(key)) getLicFile().setText((String) value);
-            });
-
-            //Loading properties based on env file
-            String envFile = (String)getLookup().getVariables().get(Constants.ENV_FILE);
-            getLogger().log(Level.INFO, "ENV_FILE : " + envFile);
-            if (envFile != null && !envFile.isEmpty()) {
-                getLookup().load(envFile);
-                setDependentProperties();
-            }
+        //Loading properties based on env file
+        String envFile = (String) getLookup().getVariables().get(Constants.ENV_FILE);
+        getLogger().log(Level.INFO, "ENV_FILE : " + envFile);
+        if (envFile != null && !envFile.isEmpty()) {
+            getLookup().load(envFile);
+            setDependentProperties();
         }
+
 
         //add ValueChangeListener for cisHome Text Field
         getCisHome().textProperty().addListener((observable, oldValue, newValue) -> {

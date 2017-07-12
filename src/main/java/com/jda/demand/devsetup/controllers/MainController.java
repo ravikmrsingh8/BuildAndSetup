@@ -1,56 +1,89 @@
 package com.jda.demand.devsetup.controllers;
 
+import com.jda.demand.devsetup.Main;
 import com.jda.demand.devsetup.lookup.Lookup;
-import com.jda.demand.devsetup.utils.Constants;
-import javafx.application.Application;
+import com.jda.demand.devsetup.lookup.Preferences;
+import javafx.animation.FadeTransition;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainController implements Initializable {
+    @FXML
+    private AnchorPane rootPane;
 
-    private Stage window;
-    private Scene scene;
-    private Parent root;
-    private Application application;
-
-    public Application getApplication() {
-        return application;
+    public AnchorPane getRootPane() {
+        return rootPane;
     }
 
-    public void setApplication(Application application) {
-        this.application = application;
+
+    private Lookup lookup;
+    private Logger logger;
+
+    public Lookup getLookup() {
+        return lookup;
     }
 
-    public Stage getWindow() {
-        return window;
+    public void setLookup(Lookup lookup) {
+        this.lookup = lookup;
     }
 
-    public void setWindow(Stage window) {
-        this.window = window;
+    public Logger getLogger() {
+        return logger;
     }
 
-    public Scene getScene() {
-        return scene;
-    }
-
-    public void setScene(Scene scene) {
-        this.scene = scene;
-    }
-
-    public Parent getRoot() {
-        return root;
-    }
-
-    public void setRoot(Parent root) {
-        this.root = root;
+    public void setLogger(Logger logger) {
+        this.logger = logger;
     }
 
     public void initialize(URL location, ResourceBundle resources) {
+        if (!Main.splashLoaded) {
+            splash();
+            setLookup(Lookup.getInstance());
+            setLogger(Logger.getLogger(getClass().getName()));
 
+            Preferences preferences = Preferences.getInstance();
+            if (preferences.isExist()) {
+                getLogger().log(Level.INFO, "Preferences found");
+                preferences.load();
+                preferences.getPropertiesNames().forEach((key) -> {
+                    getLookup().getVariables().put(key, preferences.getProperty(key));
+                    getLogger().log(Level.INFO, String.format("{%s : %s}", key, preferences.getProperty(key)));
+                });
+            }
+        }
+    }
+
+    private void splash() {
+        try {
+            Main.splashLoaded = true;
+            StackPane splash = FXMLLoader.load(getClass().getResource("/splash.fxml"));
+            getRootPane().getChildren().setAll(splash);
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), splash);
+            fadeOut.setFromValue(1);
+            fadeOut.setToValue(1);
+            fadeOut.setCycleCount(1);
+            fadeOut.play();
+            fadeOut.setOnFinished((e) -> {
+                try {
+                    AnchorPane pane = FXMLLoader.load(getClass().getResource("/bootstrap3.fxml"));
+                    getRootPane().getChildren().setAll(pane);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
