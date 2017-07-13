@@ -1,4 +1,3 @@
-# Demand Code Build 
 
 <img src="screenshots/buildprops.png"/>
 
