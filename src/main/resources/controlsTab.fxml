@@ -154,7 +154,7 @@
                                         <Button fx:id="installButton" mnemonicParsing="false" onAction="#onInstallButton" prefHeight="32.0" prefWidth="132.0" styleClass="primary" text="Insatall License" />
                                         <Button fx:id="runScpoTaskButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onRunScpoTaskButton" prefHeight="32.0" prefWidth="137.0" styleClass="primary" text="Run Scpo Task" />
                                         <Button fx:id="setConfigCodeButton" layoutX="10.0" layoutY="46.0" mnemonicParsing="false" onAction="#onSetConfigCodeButton" prefHeight="32.0" prefWidth="127.0" styleClass="primary" text="Set Config Code" />
-                                        <Button fx:id="sreCleanupButton" layoutX="287.0" layoutY="52.0" mnemonicParsing="false" onAction="#onSRECleanupButton" prefHeight="32.0" prefWidth="177.0" styleClass="primary" text="SRE Node Pool Cleanup" />
+                                        <!--<Button fx:id="sreCleanupButton" layoutX="287.0" layoutY="52.0" mnemonicParsing="false" onAction="#onSRECleanupButton" prefHeight="32.0" prefWidth="177.0" styleClass="primary" text="SRE Node Pool Cleanup" />-->
                                     </children>
                                 </HBox>
                             </children>

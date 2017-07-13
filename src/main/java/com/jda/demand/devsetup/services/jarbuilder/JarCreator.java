@@ -1,14 +1,13 @@
 package com.jda.demand.devsetup.services.jarbuilder;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.jda.demand.devsetup.lookup.Lookup;
 import com.jda.demand.devsetup.utils.Constants;
-import com.jda.demand.devsetup.utils.Utility;
+
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 

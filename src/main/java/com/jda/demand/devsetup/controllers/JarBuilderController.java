@@ -6,6 +6,7 @@ import com.jda.demand.devsetup.components.Dialogues;
 import com.jda.demand.devsetup.utils.Constants;
 import com.jda.demand.devsetup.utils.Utility;
 import com.jda.demand.devsetup.utils.XFile;
+import javafx.application.Platform;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -221,5 +222,6 @@ public class JarBuilderController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         getTableView().getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        getTableView().setPrefSize(Double.MAX_VALUE,Double.MAX_VALUE);
     }
 }

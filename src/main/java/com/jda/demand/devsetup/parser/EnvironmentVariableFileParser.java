@@ -1,18 +1,23 @@
 package com.jda.demand.devsetup.parser;
 
 
-import com.jda.demand.devsetup.utils.Constants;
-import javafx.util.Pair;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.jda.demand.devsetup.utils.Constants;
+
+import javafx.util.Pair;
+
 public class EnvironmentVariableFileParser {
-    private static int _line = 0;
+    //private static int _line = 0;
     private static Logger logger = Logger.getLogger(EnvironmentVariableFileParser.class.getName());
 
     public static Map<String, String> parseFile(String filePath) throws IOException {
@@ -27,6 +32,7 @@ public class EnvironmentVariableFileParser {
                 envMap.put(pair.getKey(), pair.getValue());
             }
         }
+        reader.close();
 
         String SCPO_HOME = envMap.get(Constants.ENV_BUILD_ROOT);
         String BUILD_ROOT = "%" + Constants.ENV_BUILD_ROOT + "%";
@@ -40,7 +46,7 @@ public class EnvironmentVariableFileParser {
     }
 
     private static Pair<String, String> parseLine(String line) {
-        _line++;
+        //_line++;
         line = line.trim();
         boolean startsWithSET = line.regionMatches(true, 0, "set", 0, 3);
 
@@ -48,7 +54,7 @@ public class EnvironmentVariableFileParser {
             StringTokenizer tok = new StringTokenizer(line.substring(3), "=");
             String key = tok.nextToken().trim();
             String value = tok.nextToken().trim();
-            return new Pair(key, value);
+            return new Pair<String, String>(key, value);
         }
         return null;
     }

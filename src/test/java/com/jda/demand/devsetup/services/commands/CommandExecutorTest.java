@@ -4,8 +4,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import java.io.IOException;
-
 public class CommandExecutorTest extends TestCase {
 
     public CommandExecutorTest(String testName) {

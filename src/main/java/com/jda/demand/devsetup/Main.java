@@ -20,7 +20,7 @@ public class Main extends Application {
         Stage window = primaryStage;
 
         Scene scene = new Scene(root, 860, 620);
-        Image image = new Image(getClass().getClassLoader().getResourceAsStream("images/on-off.png"));
+        Image image = new Image(getClass().getClassLoader().getResourceAsStream("images/setup.png"));
         window.getIcons().add(image);
         window.setTitle("Dev Environment Setup");
         window.setScene(scene);

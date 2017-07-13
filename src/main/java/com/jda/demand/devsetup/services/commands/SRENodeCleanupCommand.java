@@ -4,6 +4,8 @@ import com.jda.demand.devsetup.lookup.Lookup;
 import com.jda.demand.devsetup.utils.Constants;
 
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SRENodeCleanupCommand extends Command {
     private final String EXE = Constants.SQL_PLUS;
@@ -18,7 +20,8 @@ public class SRENodeCleanupCommand extends Command {
 
     @Override
     public File getWorkingDirectory() {
-        String classPath = getClass().getResource("/").getPath();
+        String classPath = getClass().getResource("/"+Constants.SRE_CLEANUP_SQL).getPath().replace(Constants.SRE_CLEANUP_SQL,"");
+        Logger.getLogger(getClass().getName()).log(Level.INFO, classPath);
         return new File(classPath);
     }
 }

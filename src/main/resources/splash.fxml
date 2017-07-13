@@ -4,12 +4,19 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane prefHeight="507.0" prefWidth="817.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <ImageView fitHeight="222.0" fitWidth="295.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@images/gear.gif" />
-                    </image>
-                </ImageView>
-   </children>
+<StackPane prefHeight="550.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+
+        <ImageView fitHeight="222.0" fitWidth="295.0" pickOnBounds="true" preserveRatio="true">
+
+            <image>
+                <Image url="@images/gear.gif" />
+            </image>
+            <!--
+            <image>
+                <Image url="@images/JDA.png" />
+            </image>
+            -->
+        </ImageView>
+    </children>
 </StackPane>

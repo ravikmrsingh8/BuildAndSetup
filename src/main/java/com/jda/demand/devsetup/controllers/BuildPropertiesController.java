@@ -1,5 +1,6 @@
 package com.jda.demand.devsetup.controllers;
 
+import com.jda.demand.devsetup.Main;
 import com.jda.demand.devsetup.lookup.Lookup;
 import com.jda.demand.devsetup.lookup.Preferences;
 import com.jda.demand.devsetup.services.commands.BuildCommand;
@@ -171,8 +172,10 @@ public class BuildPropertiesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         setLogger(Logger.getLogger(getClass().getName()));
         setLookup(Lookup.getInstance());
+
         //update UI according to preferences
         getLookup().getVariables().forEach((key, value) -> {
             if (Constants.CIS_HOME.equals(key)) getCisHome().setText((String) value);
