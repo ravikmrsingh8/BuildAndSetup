@@ -9,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -82,19 +81,7 @@ public class MainController implements Initializable {
                     e1.printStackTrace();
                 }
             });
-
             fadeOut.play();
-
-//            FadeTransition fadeIn = new FadeTransition(Duration.millis(1000),splash);
-//            fadeIn.setFromValue(1);
-//            fadeIn.setToValue(1);
-//            fadeIn.setCycleCount(1);
-//            fadeIn.setOnFinished((e) ->{
-//                fadeOut.play();
-//            });
-//
-//            fadeIn.play();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

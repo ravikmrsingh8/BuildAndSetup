@@ -37,12 +37,12 @@
                         </Tab>
 
                         <!-- COntrols Tab-->
-                        <Tab text="Controls ">
+                        <Tab text="Control Panel ">
                             <ControlsTabPane />
                         </Tab>
 
                         <!--Build Jar Tab -->
-                        <Tab text="Create JAR ">
+                        <Tab text="JAR Builder ">
                             <JarBuilderTabPane />
                         </Tab>
                     </TabPane>

@@ -6,7 +6,6 @@ import com.jda.demand.devsetup.components.Dialogues;
 import com.jda.demand.devsetup.utils.Constants;
 import com.jda.demand.devsetup.utils.Utility;
 import com.jda.demand.devsetup.utils.XFile;
-import javafx.application.Platform;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,14 +29,6 @@ public class JarBuilderController implements Initializable {
     private TableView<XFile> tableView;
     @FXML
     private ImageView imageView;
-    @FXML
-    private Button createButton;
-    @FXML
-    private Button deleteButton;
-    @FXML
-    private Button addFileButton;
-    @FXML
-    private Button addFolderButton;
     @FXML
     private Label label;
     @FXML
@@ -205,7 +196,7 @@ public class JarBuilderController implements Initializable {
     private void clearUI() {
         getInputJarName().clear();
         getTableView().getItems().clear();
-        Lookup.getInstance().getVariables().put(Constants.ROOT_PACKAGE,"");
+        Lookup.getInstance().getVariables().put(Constants.ROOT_PACKAGE, "");
     }
 
     private void showProcessing() {
@@ -222,6 +213,6 @@ public class JarBuilderController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         getTableView().getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        getTableView().setPrefSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        getTableView().setPrefSize(Double.MAX_VALUE, Double.MAX_VALUE);
     }
 }

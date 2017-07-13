@@ -11,12 +11,6 @@ public class Preferences {
     public static Preferences instance;
     private Properties properties;
 
-
-    public boolean isExist() {
-        return new File(Constants.PREFERENCES).exists();
-    }
-
-
     private Preferences() {
         properties = new Properties();
     }
@@ -32,10 +26,9 @@ public class Preferences {
         return instance;
     }
 
-
     public void load() {
         try {
-            if(isExist()){
+            if (isExist()) {
                 properties.load(new FileReader(new File(Constants.PREFERENCES)));
             }
         } catch (IOException e) {
@@ -53,12 +46,18 @@ public class Preferences {
         }
     }
 
+    public boolean isExist() {
+        return new File(Constants.PREFERENCES).exists();
+    }
+
     public String getProperty(String key) {
         return properties.getProperty(key);
     }
+
     public Set<String> getPropertiesNames() {
         return properties.stringPropertyNames();
     }
+
     public void setProperty(String key, String value) {
         properties.setProperty(key, value);
     }

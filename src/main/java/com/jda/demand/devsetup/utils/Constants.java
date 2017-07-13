@@ -34,6 +34,7 @@ public class Constants {
     public static final String SERVER_STANDARD_PORT = "SERVER_STANDARD_PORT";
     public static final String SERVER_HOST_NAME = "SERVER_HOST_NAME";
     public static final String LICENSE_FILE = "LICENSE_FILE";
+    public static final String DB_HOST_NAME= "WWF_DB_CONNECTION_VAR_1";
 
     //Directories from scpo
     public static final String WEBLOGIC = "weblogic";

@@ -1,11 +1,11 @@
 package com.jda.demand.devsetup.controllers;
 
-import com.jda.demand.devsetup.Main;
 import com.jda.demand.devsetup.lookup.Lookup;
 import com.jda.demand.devsetup.lookup.Preferences;
 import com.jda.demand.devsetup.services.commands.BuildCommand;
 import com.jda.demand.devsetup.services.commands.Command;
 import com.jda.demand.devsetup.services.commands.CommandExecutor;
+import com.jda.demand.devsetup.services.commands.InstallLicenseCommand;
 import com.jda.demand.devsetup.utils.Constants;
 import com.jda.demand.devsetup.utils.Utility;
 import javafx.fxml.FXML;
@@ -28,11 +28,19 @@ public class BuildPropertiesController implements Initializable {
     @FXML
     private TextField envFile;
     @FXML
-    private TextField buildPropFile;
+    private TextField serverHostName;
     @FXML
     private TextField adminPort;
     @FXML
     private TextField webServerPort;
+
+    @FXML
+    private TextField buildPropFile;
+    @FXML
+    private TextField dbName;
+    @FXML
+    private TextField sid;
+
     @FXML
     private TextField licFile;
 
@@ -107,8 +115,17 @@ public class BuildPropertiesController implements Initializable {
         return licFile;
     }
 
+    public TextField getServerHostName() {
+        return serverHostName;
+    }
 
+    public TextField getDbName() {
+        return dbName;
+    }
 
+    public TextField getSid() {
+        return sid;
+    }
 
     public Logger getLogger() {
         return logger;
@@ -140,13 +157,17 @@ public class BuildPropertiesController implements Initializable {
         new CommandExecutor().setCommand(command).execute();
     }
 
+    public void onInstallButton() {
+        if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
+        new CommandExecutor().setCommand(new InstallLicenseCommand()).execute();
+    }
+
     public void onSaveButton() {
         Preferences preferences = Preferences.getInstance();
         getLogger().log(Level.INFO, String.format("Lookup Variables %s", getLookup().getVariables()));
         Lookup.getInstance().getVariables().forEach((key, value) -> {
             if (Constants.CIS_HOME.equals(key)) preferences.setProperty(Constants.CIS_HOME, (String) value);
             if (Constants.ENV_FILE.equals(key)) preferences.setProperty(Constants.ENV_FILE, (String) value);
-            //if (Constants.LIC_FILE.equals(key)) preferences.setProperty(Constants.LIC_FILE, (String) value);
         });
         preferences.save();
     }
@@ -201,11 +222,16 @@ public class BuildPropertiesController implements Initializable {
 
     private void setDependentProperties() {
         getBuildPropFile().setText(getLookup().getEnvironmentVariables().get(Constants.ENV_BUILD_PROPS));
+        getServerHostName().setText(getLookup().getBuildProperties().getProperty(Constants.SERVER_HOST_NAME));
         getAdminPort().setText(getLookup().getBuildProperties().getProperty(Constants.SERVER_ADMIN_PORT));
         getWebServerPort().setText(getLookup().getBuildProperties().getProperty(Constants.SERVER_STANDARD_PORT));
+        getDbName().setText(getLookup().getBuildProperties().getProperty(Constants.DB_HOST_NAME));
+        getSid().setText(getLookup().getBuildProperties().getProperty(Constants.ORACLE_NET_SERVICE));
         getLicFile().setText(getLookup().getBuildProperties().getProperty(Constants.LICENSE_FILE));
+
         String findBugs = getLookup().getEnvironmentVariables().get(Constants.ENV_FINDBUGS_OFF);
         getFindBugs().setSelected("false".equals(findBugs));
+
     }
 
 }

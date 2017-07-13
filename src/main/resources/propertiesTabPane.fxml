@@ -9,130 +9,144 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="790.0" stylesheets="@css/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jda.demand.devsetup.controllers.BuildPropertiesController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="800.0" stylesheets="@css/bootstrap3.css"
+            xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.jda.demand.devsetup.controllers.BuildPropertiesController">
     <children>
-        <VBox layoutX="16.0" layoutY="14.0" prefHeight="473.0" prefWidth="780.0" spacing="15">
+        <VBox layoutX="16.0" layoutY="14.0" prefHeight="473.0" prefWidth="780.0" spacing="10">
             <children>
                 <VBox>
+                    <padding>
+                        <Insets top="20"/>
+                    </padding>
                     <children>
-                        <HBox prefHeight="282.0" prefWidth="780.0" spacing="20.0">
+                        <VBox prefHeight="200.0" prefWidth="600.0" spacing="10">
                             <children>
-                                <VBox prefHeight="454.0" prefWidth="302.0" spacing="15.0">
-                                    <padding>
-                                        <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
-                                    </padding>
-                                    <children>
 
-                                        <VBox layoutX="15.0" layoutY="15.0">
+                                <HBox spacing="5">
+                                    <children>
+                                        <!-- CIS SDK HOME-->
+                                        <VBox>
                                             <children>
                                                 <Label prefHeight="17.0" prefWidth="126.0" text="CIS SDK Home">
                                                     <font>
-                                                        <Font size="14.0" />
+                                                        <Font size="14.0"/>
                                                     </font>
                                                 </Label>
-                                                <TextField  fx:id="cisHome"  promptText="Path To CIS-SDK\bin" >
-                                                    <font><Font size ="13.0"></Font></font>
+                                                <TextField fx:id="cisHome" prefWidth="220"
+                                                           promptText="Path To CIS-SDK\bin">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
                                                 </TextField>
                                             </children>
                                         </VBox>
+                                        <!-- ENV Var setup-->
                                         <VBox>
                                             <children>
-                                                <Label prefHeight="20.0" prefWidth="243.0" text="Environment Variables Setup File">
+                                                <Label prefHeight="20.0" prefWidth="243.0"
+                                                       text="Environment Variables Setup File">
                                                     <font>
-                                                        <Font size="14.0" />
+                                                        <Font size="14.0"/>
                                                     </font>
                                                 </Label>
                                                 <HBox spacing="5.0">
                                                     <children>
-                                                        <TextField disable="false" fx:id="envFile" prefWidth="391.0" >
-                                                            <font><Font size ="13.0"></Font></font>
+                                                        <TextField fx:id="envFile" disable="false" prefWidth="310.0">
+                                                            <font>
+                                                                <Font size="13.0"/>
+                                                            </font>
                                                         </TextField>
-                                                        <ImageView onMouseClicked="#onBrowseEnvFile" fx:id="batFileChooserButton" fitHeight="31.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                                        <ImageView fx:id="batFileChooserButton" fitHeight="31.0"
+                                                                   fitWidth="46.0" onMouseClicked="#onBrowseEnvFile"
+                                                                   pickOnBounds="true" preserveRatio="true">
                                                             <image>
-                                                                <Image url="@images/search.png" />
+                                                                <Image url="@images/search.png"/>
                                                             </image>
                                                         </ImageView>
                                                     </children>
                                                 </HBox>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                                <HBox spacing="5.0">
+                                    <children>
+                                        <!-- Server Host Name-->
+                                        <VBox>
+                                            <children>
+                                                <Label text="Server Host Name">
+                                                    <font>
+                                                        <Font size="14.0"/>
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="serverHostName" disable="true" maxWidth="220.0"
+                                                           prefHeight="32.0" prefWidth="220.0">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <!--Web Server Port-->
+                                        <VBox>
+                                            <children>
+                                                <Label text="Web Server Port">
+                                                    <font>
+                                                        <Font size="14.0"/>
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="webServerPort" disable="true" maxWidth="150">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                        <!--Server Admin Port-->
+                                        <VBox>
+                                            <children>
+                                                <Label text="Server Admin Port">
+                                                    <font>
+                                                        <Font size="14.0"/>
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="adminPort" disable="true" maxWidth="150">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </TextField>
                                             </children>
                                         </VBox>
 
-                                        <VBox>
-                                            <children>
-                                                <Label  prefHeight="17.0" prefWidth="126.0" text="License File">
-                                                    <font>
-                                                        <Font size="14.0" />
-                                                    </font>
-                                                </Label>
-                                                <HBox spacing="5.0">
-                                                    <children>
-                                                        <TextField  disable="false" fx:id="licFile" prefWidth="391.0" >
-                                                            <font><Font size ="13.0"></Font></font>
-                                                        </TextField>
-                                                        <ImageView onMouseClicked="#onBrowseLicFile" fitHeight="31.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
-                                                            <image>
-                                                                <Image url="@images/search.png" />
-                                                            </image>
-                                                        </ImageView>
-                                                    </children>
-                                                </HBox>
-                                            </children>
-                                        </VBox>
-                                        <HBox prefHeight="51.0" prefWidth="416.0">
-                                            <children>
-                                                <CheckBox fx:id ="findBugs" mnemonicParsing="false" prefHeight="46.0" prefWidth="168.0"  text="Find Bug ">
-                                                    <font>
-                                                        <Font size="14.0" />
-                                                    </font>
-                                                </CheckBox>
-                                            </children>
-                                        </HBox>
                                     </children>
-                                </VBox>
-                                <VBox layoutX="10.0" layoutY="10.0" prefHeight="384.0" prefWidth="341.0" spacing="15.0">
-                                    <padding>
-                                        <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
-                                    </padding>
+                                </HBox>
+
+                                <HBox spacing="5.0">
                                     <children>
-                                        <VBox>
-                                            <children>
-                                                <Label prefHeight="17.0" prefWidth="126.0" text="Server Admin Port">
-                                                    <font>
-                                                        <Font size="14.0" />
-                                                    </font>
-                                                </Label>
-                                                <TextField fx:id="adminPort" disable="true" maxWidth="150" >
-                                                    <font><Font size ="14.0"></Font></font>
-                                                </TextField>
-                                            </children>
-                                        </VBox>
-                                        <VBox layoutX="15.0" layoutY="15.0">
-                                            <children>
-                                                <Label prefHeight="20.0" prefWidth="199.0" text="Standard Server Port">
-                                                    <font>
-                                                        <Font size="14.0" />
-                                                    </font>
-                                                </Label>
-                                                <TextField fx:id="webServerPort" disable="true" maxWidth="150" >
-                                                    <font><Font size ="14.0"></Font></font>
-                                                </TextField>
-                                            </children>
-                                        </VBox>
+                                        <!-- Build Prop File-->
                                         <VBox>
                                             <children>
                                                 <Label prefHeight="17.0" prefWidth="126.0" text="Build Properties File">
                                                     <font>
-                                                        <Font size="14.0" />
+                                                        <Font size="14.0"/>
                                                     </font>
                                                 </Label>
                                                 <HBox spacing="5.0">
                                                     <children>
-                                                        <TextField fx:id="buildPropFile" disable="false" prefWidth="391.0" >
-                                                            <font><Font size ="13.0"></Font></font>
+                                                        <TextField fx:id="buildPropFile" disable="false"
+                                                                   prefWidth="320.0">
+                                                            <font>
+                                                                <Font size="13.0"/>
+                                                            </font>
                                                         </TextField>
 
                                                     </children>
@@ -140,72 +154,185 @@
                                             </children>
                                         </VBox>
 
+                                        <!--Database Server Name -->
+                                        <VBox>
+                                            <children>
+                                                <Label prefHeight="20.0" prefWidth="170.0" text="Database Server">
+                                                    <font>
+                                                        <Font size="14.0"/>
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="dbName" disable="true" prefHeight="32.0"
+                                                           prefWidth="170.0">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+
+
+                                        <!--Oracle Service Name -->
+                                        <VBox>
+                                            <children>
+                                                <Label prefHeight="20.0" prefWidth="100.0" text="SID">
+                                                    <font>
+                                                        <Font size="14.0"/>
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="sid" disable="true" prefHeight="32.0"
+                                                           prefWidth="100.0">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                    </children>
+
+                                </HBox>
+
+                            </children>
+                        </VBox>
+
+                        <Separator prefHeight="0.0" prefWidth="780.0"/>
+                    </children>
+                </VBox>
+                <VBox alignment="TOP_LEFT" prefHeight="150.0" prefWidth="780.0">
+                    <children>
+                        <VBox spacing="5" maxWidth="560">
+                            <children>
+                                <Label alignment="TOP_LEFT" prefHeight="24.0" prefWidth="150.0" text="Build Options">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <GridPane prefHeight="80.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+
+
+                                        <CheckBox fx:id="clean" mnemonicParsing="false" prefHeight="30.0"
+                                                  prefWidth="74.0" text="Clean" GridPane.columnIndex="0"
+                                                  GridPane.rowIndex="0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </CheckBox>
+                                        <CheckBox fx:id="system" layoutX="83.0" layoutY="10.0" mnemonicParsing="false"
+                                                  prefHeight="30.0" prefWidth="75.0" text="System"
+                                                  GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </CheckBox>
+                                        <CheckBox fx:id="customize" layoutX="168.0" layoutY="10.0"
+                                                  mnemonicParsing="false" prefHeight="30.0" prefWidth="98.0"
+                                                  text="Customize" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </CheckBox>
+                                        <CheckBox fx:id="beaCreateServer" layoutX="253.0" layoutY="10.0"
+                                                  mnemonicParsing="false" prefHeight="30.0" prefWidth="142.0"
+                                                  text="BEA Create Server" GridPane.columnIndex="3"
+                                                  GridPane.rowIndex="0">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </CheckBox>
+                                        <CheckBox fx:id="demandSrc" layoutX="315.0" layoutY="10.0"
+                                                  mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0"
+                                                  selected="true" text="Demand Source" GridPane.columnIndex="0"
+                                                  GridPane.rowIndex="1">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </CheckBox>
+                                        <CheckBox fx:id="scscSrc" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                                                  prefHeight="30.0" prefWidth="74.0" text="SCSC"
+                                                  GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </CheckBox>
+                                        <CheckBox fx:id="findBugs" mnemonicParsing="false" prefHeight="30.0"
+                                                  prefWidth="100" text="Find Bug " GridPane.columnIndex="2"
+                                                  GridPane.rowIndex="1">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </CheckBox>
+                                    </children>
+
+                                </GridPane>
+                                <HBox prefHeight="48.0" prefWidth="780.0" spacing="15">
+                                    <padding>
+                                        <Insets top="10"/>
+                                    </padding>
+                                    <children>
+                                        <Button fx:id="buildButton" mnemonicParsing="false" onAction="#onBuildButton"
+                                                prefWidth="100" style="-fx-background-insets: 0,0,-1,0;"
+                                                styleClass="primary" text="Build"/>
+                                        <Button fx:id="saveButton" layoutX="10.0" layoutY="9.0" mnemonicParsing="false"
+                                                onAction="#onSaveButton" prefWidth="120"
+                                                style="-fx-background-insets: 0,0,-1,0;" styleClass="primary"
+                                                text="Save Properties"/>
+                                    </children>
+                                </HBox>
+
+
+                            </children>
+                        </VBox>
+                        <Separator prefWidth="780.0"/>
+
+                    </children>
+                </VBox>
+                <VBox prefWidth="621.0">
+                    <children>
+                        <HBox prefWidth="621.0" spacing="5">
+                            <children>
+                                <VBox spacing="2">
+                                    <children>
+                                        <Label prefHeight="17.0" prefWidth="126.0" text="License File">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </Label>
+                                        <HBox spacing="5.0">
+                                            <children>
+                                                <TextField fx:id="licFile" disable="false" prefWidth="320.0">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </TextField>
+                                                <ImageView onMouseClicked="#onBrowseLicFile" fitHeight="31.0"
+                                                           fitWidth="46.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@images/search.png"/>
+                                                    </image>
+                                                </ImageView>
+                                                <Button fx:id="installButton" onAction="#onInstallButton"
+                                                        mnemonicParsing="true" prefHeight="32.0" prefWidth="132.0"
+                                                        styleClass="primary" text="_Install"/>
+                                            </children>
+                                        </HBox>
                                     </children>
                                 </VBox>
                             </children>
                         </HBox>
-                        <Separator prefHeight="0.0" prefWidth="780.0" />
                     </children>
                 </VBox>
-                <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="789.0">
-                    <children>
-                        <VBox>
-                            <children>
-                                <Label alignment="TOP_CENTER" prefHeight="24.0" prefWidth="72.0" text="Build Tasks">
-                                    <font>
-                                        <Font size="14.0" />
-                                    </font>
-                                </Label>
-
-
-                                <HBox fx:id="buildOptions" prefHeight="40.0" prefWidth="671.0" spacing="10">
-                                    <children>
-                                        <CheckBox fx:id="clean" mnemonicParsing="false" prefHeight="30.0" prefWidth="74.0" text="Clean">
-                                            <font>
-                                                <Font size="14.0" />
-                                            </font>
-                                        </CheckBox>
-                                        <CheckBox fx:id="system" layoutX="83.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="System">
-                                            <font>
-                                                <Font size="14.0" />
-                                            </font>
-                                        </CheckBox>
-                                        <CheckBox fx:id="customize"  layoutX="168.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="98.0" text="Customize">
-                                            <font>
-                                                <Font size="14.0" />
-                                            </font>
-                                        </CheckBox>
-                                        <CheckBox fx:id="beaCreateServer"  layoutX="253.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="142.0" text="BEA Create Server">
-                                            <font>
-                                                <Font size="14.0" />
-                                            </font>
-                                        </CheckBox>
-                                        <CheckBox fx:id="demandSrc"   layoutX="315.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" selected="true" text="Demand Source">
-                                            <font>
-                                                <Font size="14.0" />
-                                            </font>
-                                        </CheckBox>
-                                        <CheckBox fx:id="scscSrc"  layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="74.0" text="SCSC">
-                                            <font>
-                                                <Font size="14.0" />
-                                            </font>
-                                        </CheckBox>
-                                    </children>
-                                </HBox>
-                            </children>
-                        </VBox>
-
-
-                    </children>
-                </HBox>
-                <HBox prefHeight="74.0" prefWidth="789.0" spacing="15">
-                    <children>
-
-
-                        <Button fx:id="buildButton" mnemonicParsing="false" onAction="#onBuildButton" prefWidth="100" style="-fx-background-insets: 0,0,-1,0;" styleClass="primary" text="Build" />
-                        <Button fx:id="saveButton" onAction="#onSaveButton" layoutX="10.0" layoutY="9.0" mnemonicParsing="false" prefWidth="120" style="-fx-background-insets: 0,0,-1,0;" styleClass="primary" text="Save Properties" />
-                    </children>
-                </HBox>
 
             </children>
         </VBox>
