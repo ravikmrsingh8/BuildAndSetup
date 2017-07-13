@@ -1,0 +1,1 @@
+javapackager -createjar -appclass com.jda.demand.devsetup.Main -srcdir target/classes  -outfile Executable -v
