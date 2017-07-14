@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -53,15 +54,24 @@ public class EnvironmentVariableFileParser {
     }
     private static String getParsedEnvVarValue(String value) {
         Matcher matcher = pattern.matcher(value);
+        String envVar = null;
         while(matcher.find()) {
             String groupWithPercentChar = matcher.group();
             String group = groupWithPercentChar.replaceAll("%", "");
             if(envMap.containsKey(group)) {
                 value = value.replace(groupWithPercentChar,envMap.get(group));
-            } else if(System.getenv().containsKey(group)) {
-                value = value.replace(groupWithPercentChar, System.getenv().get(group));
+            } else if( (envVar = getEnvVar(group)) != null) {
+                value = value.replace(groupWithPercentChar, envVar);
             }
         }
         return value;
+    }
+    private static String getEnvVar(String envVar) {
+        for(Map.Entry<String, String> entry: System.getenv().entrySet()){
+            if(entry.getKey().toUpperCase().equals(envVar.toUpperCase())) {
+                return entry.getValue();
+            }
+        }
+        return null;
     }
 }
