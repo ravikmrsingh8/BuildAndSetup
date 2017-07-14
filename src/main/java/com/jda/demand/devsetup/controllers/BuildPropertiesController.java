@@ -162,16 +162,6 @@ public class BuildPropertiesController implements Initializable {
         new CommandExecutor().setCommand(new InstallLicenseCommand()).execute();
     }
 
-    public void onSaveButton() {
-        Preferences preferences = Preferences.getInstance();
-        getLogger().log(Level.INFO, String.format("Lookup Variables %s", getLookup().getVariables()));
-        Lookup.getInstance().getVariables().forEach((key, value) -> {
-            if (Constants.CIS_HOME.equals(key)) preferences.setProperty(Constants.CIS_HOME, (String) value);
-            if (Constants.ENV_FILE.equals(key)) preferences.setProperty(Constants.ENV_FILE, (String) value);
-        });
-        preferences.save();
-    }
-
 
     public void onBrowseLicFile() {
         File file = new FileChooser().showOpenDialog(null);
