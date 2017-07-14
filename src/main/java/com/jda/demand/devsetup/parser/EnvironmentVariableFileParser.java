@@ -11,20 +11,20 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.jda.demand.devsetup.utils.Constants;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javafx.util.Pair;
 
 public class EnvironmentVariableFileParser {
     //private static int _line = 0;
     private static Logger logger = Logger.getLogger(EnvironmentVariableFileParser.class.getName());
+    private static Pattern pattern = Pattern.compile("%([^%]{1,}?)%");
+    private static Map<String, String> envMap = new LinkedHashMap<>();
 
     public static Map<String, String> parseFile(String filePath) throws IOException {
         InputStream in = new FileInputStream(filePath);
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        Map<String, String> envMap = new LinkedHashMap<>();
-
         String line = null;
         while ((line = reader.readLine()) != null) {
             Pair<String, String> pair = parseLine(line);
@@ -33,14 +33,6 @@ public class EnvironmentVariableFileParser {
             }
         }
         reader.close();
-
-        String SCPO_HOME = envMap.get(Constants.ENV_BUILD_ROOT);
-        String BUILD_ROOT = "%" + Constants.ENV_BUILD_ROOT + "%";
-        envMap.forEach((key, value)->{
-            if(value.contains(BUILD_ROOT)) {
-                envMap.put(key,value.replace(BUILD_ROOT, SCPO_HOME));
-            }
-        });
         logger.log(Level.INFO, String.format("Environment Map %s", envMap));
         return envMap;
     }
@@ -54,8 +46,22 @@ public class EnvironmentVariableFileParser {
             StringTokenizer tok = new StringTokenizer(line.substring(3), "=");
             String key = tok.nextToken().trim();
             String value = tok.nextToken().trim();
-            return new Pair<String, String>(key, value);
+            value = getParsedEnvVarValue(value);
+            return new Pair<>(key, value);
         }
         return null;
+    }
+    private static String getParsedEnvVarValue(String value) {
+        Matcher matcher = pattern.matcher(value);
+        while(matcher.find()) {
+            String groupWithPercentChar = matcher.group();
+            String group = groupWithPercentChar.replaceAll("%", "");
+            if(envMap.containsKey(group)) {
+                value = value.replace(groupWithPercentChar,envMap.get(group));
+            } else if(System.getenv().containsKey(group)) {
+                value = value.replace(groupWithPercentChar, System.getenv().get(group));
+            }
+        }
+        return value;
     }
 }
