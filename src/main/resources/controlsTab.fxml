@@ -2,160 +2,158 @@
 
 <?import com.jda.demand.devsetup.components.ToggleSwitch?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="790.0" style="-fx-background-color: white;"
-            stylesheets="@css/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.112"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jda.demand.devsetup.controllers.ControlsController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="790.0" stylesheets="@css/bootstrap3.css"
+            xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.jda.demand.devsetup.controllers.ControlsController">
+
     <children>
-        <VBox spacing="15">
+        <VBox nodeOrientation="LEFT_TO_RIGHT" prefWidth="600" spacing="15" AnchorPane.bottomAnchor="50"
+              AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="20">
             <padding>
-                <Insets left="20.0" top="20.0"/>
+                <Insets left="20"/>
             </padding>
             <children>
-                <VBox layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="760.0">
+                <VBox prefHeight="97.0" prefWidth="670.0" spacing="8"
+                      style="-fx-border-radius: 5; -fx-padding:5; -fx-border-color: #398ad7;">
+
                     <children>
-                        <Label text="Last Executed Command">
-                            <font>
-                                <Font size="14.0"/>
-                            </font>
-                        </Label>
-                        <AnchorPane prefHeight="80" style="-fx-border-color: #CDCECC; -fx-border-radius: 5;">
-                            <VBox prefHeight="85.0" prefWidth="751.0" spacing="10">
-                                <padding>
-                                    <Insets left="10.0" top="5"/>
-                                </padding>
-                                <children>
-
-                                    <TextFlow fx:id="commandTextFlow" prefHeight="30.0" prefWidth="741.0"
-                                              style="-fx-background-color: #000000; -fx-background-radius: 4; -fx-padding: 5;"
-                                              visible="false">
-                                        <Text fx:id="commandText" fill="WHITE" wrappingWidth="500.0">
-                                            <font>
-                                                <Font name="Consolas" size="14.0"/>
-                                            </font>
-                                        </Text>
-                                    </TextFlow>
-                                    <TextFlow prefHeight="30.0" prefWidth="741.0">
-                                        <Text fx:id="statusText" fill="#398ad7" wrappingWidth="320.0">
-                                            <font>
-                                                <Font size="14"/>
-                                            </font>
-                                        </Text>
-                                        <Hyperlink fx:id="hyperlinkURL" onMouseClicked="#onHyperLinkURLClick"
-                                                   textFill="forestgreen" wrapText="false">
-                                            <font>
-                                                <Font size="14"/>
-                                            </font>
-                                        </Hyperlink>
-
-                                    </TextFlow>
-
-
-                                </children>
-                            </VBox>
-
-                        </AnchorPane>
-                    </children>
-
-                </VBox>
-                <VBox layoutX="16.0" layoutY="14.0" prefHeight="213.0" prefWidth="760.0">
-                    <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                            <children>
-                                <Separator prefWidth="200.0"/>
-                                <Label text="Controls">
-                                    <font>
-                                        <Font size="14"/>
-                                    </font>
-                                </Label>
-                            </children>
+                        <VBox>
+                            <Label prefWidth="190.0" text="Last Executed Command">
+                                <font>
+                                    <Font size="14.0"/>
+                                </font>
+                            </Label>
                         </VBox>
-                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="161.0" prefWidth="789.0" spacing="20.0">
+                        <AnchorPane prefHeight="66.0" prefWidth="670.0">
                             <children>
-                                <GridPane prefHeight="161.0" prefWidth="587.0">
-                                    <columnConstraints>
-                                        <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="150.0"/>
-                                        <ColumnConstraints hgrow="NEVER" minWidth="150.0"/>
-                                        <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="150.0"/>
-                                        <ColumnConstraints hgrow="NEVER" minWidth="150.0"/>
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="40.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="40.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="40.0" vgrow="NEVER"/>
-                                        <RowConstraints minHeight="40.0" vgrow="NEVER"/>
-                                    </rowConstraints>
+                                <VBox fx:id="commandBox" prefHeight="66.0" prefWidth="670.0" visible="true">
                                     <children>
-                                        <Label text="Admin Server" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label prefHeight="20.0" prefWidth="125.0" text="Managed Server"
-                                               GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label text="CIS Agent" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label text="SSO Server" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label text="Basic Node Pool" GridPane.columnIndex="3" GridPane.rowIndex="0">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label text="RMI Node Pool" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font size="14.0"/>
-                                            </font>
-                                        </Label>
-
-                                        <ToggleSwitch fx:id="adminServer" onAction="#onAdminServerToggleSwitch"
-                                                      GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                                        <ToggleSwitch fx:id="webServer" onAction="#onWebServerToggleSwitch"
-                                                      GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                                        <ToggleSwitch fx:id="cisAgent" onAction="#onCisAgentToggleSwitch"
-                                                      GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                                        <ToggleSwitch fx:id="ssoServer" onAction="#onSSOServerToggleSwitch"
-                                                      GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-                                        <ToggleSwitch fx:id="basicPool" onAction="#onBasicPoolToggleSwitch"
-                                                      GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-                                        <ToggleSwitch fx:id="rmiPool" onAction="#onRMIPoolToggleSwitch"
-                                                      GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                                        <TextFlow fx:id="commandTextFlow1" prefWidth="622.0">
+                                            <Text fx:id="commandText" fill="#398ad7" wrappingWidth="500.0">
+                                                <font>
+                                                    <Font name="Consolas" size="14.0"/>
+                                                </font>
+                                            </Text>
+                                        </TextFlow>
+                                        <TextFlow fx:id="commandTextFlow2" layoutX="16.0" layoutY="16.0"
+                                                  prefWidth="622.0">
+                                            <children>
+                                                <Text fx:id="statusText" fill="#398ad7" wrappingWidth="320.0">
+                                                    <font>
+                                                        <Font size="14"/>
+                                                    </font>
+                                                </Text>
+                                                <Hyperlink fx:id="hyperlinkURL" onMouseClicked="#onHyperLinkURLClick"
+                                                           textFill="lightgreen" wrapText="false">
+                                                    <font>
+                                                        <Font size="14"/>
+                                                    </font>
+                                                </Hyperlink>
+                                            </children>
+                                        </TextFlow>
                                     </children>
-                                </GridPane>
+                                </VBox>
                             </children>
-                        </HBox>
-
+                        </AnchorPane>
 
                     </children>
                 </VBox>
-                <VBox prefHeight="135.0" prefWidth="760.0">
+                <VBox prefHeight="230.0">
                     <children>
+                        <TitledPane prefHeight="200.0" styleClass="primary" text="Controls">
+                            <AnchorPane>
+                                <TilePane alignment="TOP_LEFT" maxWidth="660">
+                                    <padding>
+                                        <Insets bottom="10" left="20" top="20"/>
+                                    </padding>
+                                    <children>
+                                        <GridPane>
+                                            <columnConstraints>
+                                                <ColumnConstraints halignment="LEFT" hgrow="NEVER" minWidth="100.0"/>
+                                                <ColumnConstraints hgrow="NEVER" minWidth="100.0"/>
+                                                <ColumnConstraints halignment="LEFT" hgrow="NEVER" minWidth="100.0"/>
+                                                <ColumnConstraints hgrow="NEVER" minWidth="100.0"/>
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="40.0" vgrow="NEVER"/>
+                                                <RowConstraints minHeight="40.0" vgrow="NEVER"/>
+                                                <RowConstraints minHeight="40.0" vgrow="NEVER"/>
+                                                <RowConstraints minHeight="40.0" vgrow="NEVER"/>
+                                            </rowConstraints>
+                                            <children>
+                                                <Label text="Admin Server" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="0">
+                                                    <font>
+                                                        <Font size="14.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label prefHeight="20.0" prefWidth="125.0" text="Managed Server"
+                                                       GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font size="14.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label text="CIS Agent" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                    <font>
+                                                        <Font size="14.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label text="SSO Server" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                    <font>
+                                                        <Font size="14.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label text="Basic Node Pool" GridPane.columnIndex="3"
+                                                       GridPane.rowIndex="0">
+                                                    <font>
+                                                        <Font size="14.0"/>
+                                                    </font>
+                                                </Label>
+                                                <Label text="RMI Node Pool" GridPane.columnIndex="3"
+                                                       GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font size="14.0"/>
+                                                    </font>
+                                                </Label>
 
+                                                <ToggleSwitch fx:id="adminServer" onAction="#onAdminServerToggleSwitch"
+                                                              GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                                <ToggleSwitch fx:id="webServer" onAction="#onWebServerToggleSwitch"
+                                                              GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                                <ToggleSwitch fx:id="cisAgent" onAction="#onCisAgentToggleSwitch"
+                                                              GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                                <ToggleSwitch fx:id="ssoServer" onAction="#onSSOServerToggleSwitch"
+                                                              GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                                <ToggleSwitch fx:id="basicPool" onAction="#onBasicPoolToggleSwitch"
+                                                              GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                                                <ToggleSwitch fx:id="rmiPool" onAction="#onRMIPoolToggleSwitch"
+                                                              GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                                            </children>
+                                        </GridPane>
+                                    </children>
+                                </TilePane>
+                            </AnchorPane>
+                        </TitledPane>
                     </children>
                 </VBox>
+                <!--<VBox prefHeight="135.0" prefWidth="760.0">-->
+                <!--<children>-->
+
+                <!--</children>-->
+                <!--</VBox>-->
             </children>
         </VBox>
     </children>

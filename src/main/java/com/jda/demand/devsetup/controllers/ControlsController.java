@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -33,7 +34,7 @@ public class ControlsController implements Initializable {
     private ToggleSwitch rmiPool;
 
     @FXML
-    private TextFlow commandTextFlow;
+    private VBox commandBox;
     @FXML
     private Text statusText;
     @FXML
@@ -45,8 +46,8 @@ public class ControlsController implements Initializable {
     @FXML
     private Lookup lookup;
 
-    public TextFlow getCommandTextFlow() {
-        return commandTextFlow;
+    public VBox getCommandBox() {
+        return commandBox;
     }
 
     public ToggleSwitch getAdminServer() {
@@ -102,12 +103,11 @@ public class ControlsController implements Initializable {
 
     public void onAdminServerToggleSwitch() {
         if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
+        resetLastExecutedCommand();
         if (getAdminServer().isSwitchOn()) {
-            resetLastExecutedCommand();
             String command = getCommandExecutor().setCommand(new AdminServerStartCommand()).execute();
             getCommandText().setText(command);
-            getCommandTextFlow().setVisible(true);
-
+            getCommandBox().setVisible(true);
             String ADMIN_PORT = getLookup().getBuildProperties().getProperty(Constants.SERVER_ADMIN_PORT);
             String HOST_NAME = getLookup().getBuildProperties().getProperty(Constants.SERVER_HOST_NAME);
             String url = "http://" + HOST_NAME + ":" + ADMIN_PORT + "/console";
@@ -118,12 +118,11 @@ public class ControlsController implements Initializable {
 
     public void onWebServerToggleSwitch() {
         if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
+        resetLastExecutedCommand();
         if (getWebServer().isSwitchOn()) {
-            resetLastExecutedCommand();
             String command = getCommandExecutor().setCommand(new ManagedServerStartCommand()).execute();
             getCommandText().setText(command);
-            getCommandTextFlow().setVisible(true);
-
+            getCommandBox().setVisible(true);
             String WEB_SERVER_PORT = getLookup().getBuildProperties().getProperty(Constants.SERVER_STANDARD_PORT);
             String HOST_NAME = getLookup().getBuildProperties().getProperty(Constants.SERVER_HOST_NAME);
             String url = "http://" + HOST_NAME + ":" + WEB_SERVER_PORT + "/";
@@ -134,78 +133,51 @@ public class ControlsController implements Initializable {
 
     public void onCisAgentToggleSwitch() {
         if (!Utility.isLookupVariableSet(Constants.CIS_HOME)) return;
+        resetLastExecutedCommand();
         if (getCisAgent().isSwitchOn()) {
-            resetLastExecutedCommand();
             String command = getCommandExecutor().setCommand(new CISAgentStartCommand()).execute();
             getCommandText().setText(command);
-            getCommandTextFlow().setVisible(true);
+            getCommandBox().setVisible(true);
         }
     }
 
     public void onSSOServerToggleSwitch() {
         if (!Utility.isLookupVariableSet(Constants.CIS_HOME)) return;
+        resetLastExecutedCommand();
         if (getSsoServer().isSwitchOn()) {
-            resetLastExecutedCommand();
             String command = getCommandExecutor().setCommand(new SSOServerStartCommand()).execute();
             getCommandText().setText(command);
-            getCommandTextFlow().setVisible(true);
+            getCommandBox().setVisible(true);
         }
     }
 
     public void onBasicPoolToggleSwitch() {
         if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
+        resetLastExecutedCommand();
         if (getBasicPool().isSwitchOn()) {
-            resetLastExecutedCommand();
             String command = getCommandExecutor().setCommand(new BasicNodePoolStartCommand()).execute();
             getCommandText().setText(command);
-            getCommandTextFlow().setVisible(true);
+            getCommandBox().setVisible(true);
         }
     }
 
     public void onRMIPoolToggleSwitch() {
         if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
+        resetLastExecutedCommand();
         if (getRmiPool().isSwitchOn()) {
-            resetLastExecutedCommand();
             String command = getCommandExecutor().setCommand(new RMIPoolStartCommand()).execute();
             getCommandText().setText(command);
-            getCommandTextFlow().setVisible(true);
+            getCommandBox().setVisible(true);
         }
     }
 
-
-    /*
-    public void onRunScpoTaskButton() {
-        if(!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
-        resetLastExecutedCommand();
-        String command = getCommandExecutor().setCommand(new RunScpoTaskCommand()).execute();
-        getCommandText().setText(command);
-        getCommandTextFlow().setVisible(true);
-    }
-
-    public void onSetConfigCodeButton() {
-        if(!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
-        resetLastExecutedCommand();
-        String command = getCommandExecutor().setCommand(new SetConfigCodeCommand()).execute();
-        getCommandText().setText(command);
-        getCommandTextFlow().setVisible(true);
-    }
-
-    public void onSRECleanupButton() {
-        if(!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
-        resetLastExecutedCommand();
-        String command = getCommandExecutor().setCommand(new SRENodeCleanupCommand()).execute();
-        getCommandText().setText(command);
-        getCommandTextFlow().setVisible(true);
-    }
-
-    */
     public void onHyperLinkURLClick() {
         Application application = (Application) getLookup().getVariables().get(Constants.MAIN_APP);
         application.getHostServices().showDocument(getHyperlinkURL().getText());
     }
 
     private void resetLastExecutedCommand() {
-        getCommandTextFlow().setVisible(false);
+        getCommandBox().setVisible(false);
         getCommandText().setText(null);
         getStatusText().setText(null);
         getHyperlinkURL().setText(null);
