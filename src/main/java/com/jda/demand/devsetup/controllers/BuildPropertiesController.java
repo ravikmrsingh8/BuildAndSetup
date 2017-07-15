@@ -208,6 +208,13 @@ public class BuildPropertiesController implements Initializable {
             getLogger().log(Level.INFO, String.format("CIS HOME %s", newValue));
             getLookup().getVariables().put(Constants.CIS_HOME, newValue);
         });
+
+        //add ValueChangeListener for LicenseFile Text Field
+        getLicFile().textProperty().addListener((observable, oldValue, newValue) -> {
+            getLogger().log(Level.INFO, String.format("Lic File %s", newValue));
+            getLookup().getVariables().put(Constants.LIC_FILE, newValue);
+        });
+
     }
 
     private void setDependentProperties() {
