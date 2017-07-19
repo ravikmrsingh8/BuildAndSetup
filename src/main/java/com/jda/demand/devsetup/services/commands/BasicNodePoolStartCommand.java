@@ -5,7 +5,7 @@ import com.jda.demand.devsetup.utils.Constants;
 
 import java.io.File;
 
-public class BasicNodePoolStartCommand extends Command {
+public class BasicNodePoolStartCommand extends StartCommand {
 
     private final String EXE = Constants.START_NODE_POOL;
     private final String SCPO_HOME = Lookup.getInstance().getEnvironmentVariables().get(Constants.ENV_BUILD_ROOT);

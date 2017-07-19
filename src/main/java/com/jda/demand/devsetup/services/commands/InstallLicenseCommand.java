@@ -5,7 +5,7 @@ import com.jda.demand.devsetup.utils.Constants;
 
 import java.io.File;
 
-public class InstallLicenseCommand extends Command {
+public class InstallLicenseCommand extends StartCommand {
     private final String EXE = Constants.INSTALL_LIC;
     private final String LIC_FILE = (String)Lookup.getInstance().getVariables().get(Constants.LIC_FILE);
     private final String SCPO_HOME = (String) Lookup.getInstance().getEnvironmentVariables().get(Constants.ENV_BUILD_ROOT);

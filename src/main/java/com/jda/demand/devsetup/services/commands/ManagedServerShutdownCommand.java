@@ -7,17 +7,18 @@ import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ManagedServerStartCommand extends StartCommand {
-    private final String EXE = Constants.START_WEB_SERVER;
+public class ManagedServerShutdownCommand extends StopCommand {
+    private final String EXE = Constants.STOP_WEB_SERVER;
     private final String ADMIN_PORT = Lookup.getInstance().getBuildProperties().getProperty(Constants.SERVER_ADMIN_PORT);
     private final String SCPO_HOME = Lookup.getInstance().getEnvironmentVariables().get(Constants.ENV_BUILD_ROOT);
     private final String HOST_NAME = Lookup.getInstance().getBuildProperties().getProperty(Constants.SERVER_HOST_NAME);
 
-    public ManagedServerStartCommand() {
+    public ManagedServerShutdownCommand() {
         addArgument(EXE);
-        addArgument("JDAServer");
-        addArgument("http://" + HOST_NAME + ":" + ADMIN_PORT);
-        addArgument("debugsocket");
+        addArgument("t3://" + HOST_NAME + ":" + ADMIN_PORT);
+        addArgument(Constants.ADMIN_USER);
+        addArgument(Constants.ADMIN_PASSWORD);
+        addArgument(Constants.WEBWORKS);
     }
 
     @Override

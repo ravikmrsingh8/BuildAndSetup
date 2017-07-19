@@ -1,10 +1,8 @@
 package com.jda.demand.devsetup.controllers;
 
 import com.jda.demand.devsetup.lookup.Lookup;
-import com.jda.demand.devsetup.lookup.Preferences;
 import com.jda.demand.devsetup.services.commands.BuildCommand;
 import com.jda.demand.devsetup.services.commands.Command;
-import com.jda.demand.devsetup.services.commands.CommandExecutor;
 import com.jda.demand.devsetup.services.commands.InstallLicenseCommand;
 import com.jda.demand.devsetup.utils.Constants;
 import com.jda.demand.devsetup.utils.Utility;
@@ -13,8 +11,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import org.apache.commons.exec.DefaultExecuteResultHandler;
+import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.ExecuteResultHandler;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -154,12 +156,12 @@ public class BuildPropertiesController implements Initializable {
         if (getScscSrc().isSelected()) command.addArgument(Constants.SCSC_SRC);
         String findBugOff = getFindBugs().isSelected() ? "false" : "true";
         getLookup().getEnvironmentVariables().put(Constants.ENV_FINDBUGS_OFF, findBugOff);
-        new CommandExecutor().setCommand(command).execute();
+        executeCommand(command, new DefaultExecuteResultHandler());
     }
 
     public void onInstallButton() {
         if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
-        new CommandExecutor().setCommand(new InstallLicenseCommand()).execute();
+        executeCommand(new InstallLicenseCommand(), new DefaultExecuteResultHandler());
     }
 
 
@@ -231,4 +233,18 @@ public class BuildPropertiesController implements Initializable {
 
     }
 
+    private void executeCommand(Command command, ExecuteResultHandler handler) {
+        if (command == null) return;
+        getLogger().log(Level.INFO, "Running "+command);
+        try {
+            DefaultExecutor executor = new DefaultExecutor();
+            executor.setWorkingDirectory(command.getWorkingDirectory());
+            executor.execute(command, command.getEnvironmentVariables(), handler);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
+
+

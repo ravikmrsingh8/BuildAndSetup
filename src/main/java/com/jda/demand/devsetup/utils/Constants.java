@@ -2,7 +2,6 @@ package com.jda.demand.devsetup.utils;
 
 public class Constants {
     public final static String OUTPUT_FOLDER = "Output";
-    public final static String TEMP_FOLDER ="temp";
     //Preferences lookup
     public static final String PREFERENCES = "preferences.properties";
     // keys for preferences.properties  & lookup variables
@@ -52,14 +51,23 @@ public class Constants {
 
     //EXECUTABLES
     public static final String START_ADMIN_SERVER = "startWebworksAdminServer.cmd";
+    public static final String SHUTDOWN_ADMIN_SERVER = "shutDownWebworksAdminServer.cmd";
+    public static final String ADMIN_USER = "weblogic";
+    public static final String ADMIN_PASSWORD = "weblogic1";
+    public static final String WEBWORKS = "WebWORKS1";
+
+
     public static final String START_WEB_SERVER = "startManagedWebworksServer.cmd";
+    public static final String STOP_WEB_SERVER = "shutdownManagedServer.cmd";
 
     public static final String START_NODE_POOL = "startNodePoolManager.cmd";
+    public static final String SHUTDOWN_NODE_POOL = "shutDownNodePoolManager.cmd";
     public static final String BASIC_NODE_POOL = "Basic";
     public static final String RMI_NODE_POOL = "RMI";
 
     public static final String LAUNCH = "launch.bat";
-    public static final String CIS_AGENT_PY = "runCISAgent.py";
+    public static final String RUN_CIS_AGENT_PY = "runCISAgent.py";
+    public static final String STOP_CIS_AGENT_PY = "stopCISAgent.py";
     public static final String SSO_SERVER_PY = "runSSOServer.py";
 
     public static final String INSTALL_LIC = "installLicense.cmd";

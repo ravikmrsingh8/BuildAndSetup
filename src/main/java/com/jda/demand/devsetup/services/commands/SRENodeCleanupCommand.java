@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SRENodeCleanupCommand extends Command {
+public class SRENodeCleanupCommand extends StartCommand {
     private final String EXE = Constants.SQL_PLUS;
     private final String ORACLE_NET_SERVICE = Lookup.getInstance().getBuildProperties().getProperty(Constants.ORACLE_NET_SERVICE);
 

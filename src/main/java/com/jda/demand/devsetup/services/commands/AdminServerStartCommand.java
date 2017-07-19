@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class AdminServerStartCommand extends Command {
+public class AdminServerStartCommand extends StartCommand {
 
     private final String EXE = Constants.START_ADMIN_SERVER;
     private final String SCPO_HOME = Lookup.getInstance().getEnvironmentVariables().get(Constants.ENV_BUILD_ROOT);

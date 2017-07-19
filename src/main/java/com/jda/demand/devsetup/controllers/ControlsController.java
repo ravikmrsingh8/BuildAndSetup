@@ -11,13 +11,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+import org.apache.commons.exec.DefaultExecuteResultHandler;
+import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.ExecuteResultHandler;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ControlsController implements Initializable {
-
 
     @FXML
     private ToggleSwitch adminServer;
@@ -42,9 +46,6 @@ public class ControlsController implements Initializable {
 
     @FXML
     private Hyperlink hyperlinkURL;
-
-    @FXML
-    private Lookup lookup;
 
     public VBox getCommandBox() {
         return commandBox;
@@ -83,36 +84,34 @@ public class ControlsController implements Initializable {
     }
 
 
-    public CommandExecutor getCommandExecutor() {
-        return new CommandExecutor();
-    }
-
-
     public Hyperlink getHyperlinkURL() {
         return hyperlinkURL;
     }
 
 
     public Lookup getLookup() {
-        return lookup;
+        return Lookup.getInstance();
     }
 
-    public void setLookup(Lookup lookup) {
-        this.lookup = lookup;
-    }
 
     public void onAdminServerToggleSwitch() {
         if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         resetLastExecutedCommand();
         if (getAdminServer().isSwitchOn()) {
-            String command = getCommandExecutor().setCommand(new AdminServerStartCommand()).execute();
-            getCommandText().setText(command);
-            getCommandBox().setVisible(true);
+            executeCommand(new AdminServerStartCommand(), new DefaultExecuteResultHandler() {
+                @Override
+                public void onProcessComplete(int exitValue) {
+                    getAdminServer().switchedOnProperty().setValue(false);
+
+                }
+            });
             String ADMIN_PORT = getLookup().getBuildProperties().getProperty(Constants.SERVER_ADMIN_PORT);
             String HOST_NAME = getLookup().getBuildProperties().getProperty(Constants.SERVER_HOST_NAME);
             String url = "http://" + HOST_NAME + ":" + ADMIN_PORT + "/console";
             getStatusText().setText("Admin Server Running at ");
             getHyperlinkURL().setText(url);
+        } else {
+            executeCommand(new AdminServerStopCommand(), new DefaultExecuteResultHandler());
         }
     }
 
@@ -120,14 +119,20 @@ public class ControlsController implements Initializable {
         if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         resetLastExecutedCommand();
         if (getWebServer().isSwitchOn()) {
-            String command = getCommandExecutor().setCommand(new ManagedServerStartCommand()).execute();
-            getCommandText().setText(command);
-            getCommandBox().setVisible(true);
+            executeCommand(new ManagedServerStartCommand(), new DefaultExecuteResultHandler() {
+                @Override
+                public void onProcessComplete(int exitValue) {
+                    getWebServer().switchedOnProperty().setValue(false);
+
+                }
+            });
             String WEB_SERVER_PORT = getLookup().getBuildProperties().getProperty(Constants.SERVER_STANDARD_PORT);
             String HOST_NAME = getLookup().getBuildProperties().getProperty(Constants.SERVER_HOST_NAME);
             String url = "http://" + HOST_NAME + ":" + WEB_SERVER_PORT + "/";
             getStatusText().setText("Web Server Running at ");
             getHyperlinkURL().setText(url);
+        } else {
+            executeCommand(new ManagedServerShutdownCommand(), new DefaultExecuteResultHandler());
         }
     }
 
@@ -135,9 +140,15 @@ public class ControlsController implements Initializable {
         if (!Utility.isLookupVariableSet(Constants.CIS_HOME)) return;
         resetLastExecutedCommand();
         if (getCisAgent().isSwitchOn()) {
-            String command = getCommandExecutor().setCommand(new CISAgentStartCommand()).execute();
-            getCommandText().setText(command);
-            getCommandBox().setVisible(true);
+            executeCommand(new CISAgentStartCommand(), new DefaultExecuteResultHandler() {
+                @Override
+                public void onProcessComplete(int exitValue) {
+                    getCisAgent().switchedOnProperty().setValue(false);
+
+                }
+            });
+        } else {
+            executeCommand(new CISAgentStopCommand(), new DefaultExecuteResultHandler());
         }
     }
 
@@ -145,9 +156,15 @@ public class ControlsController implements Initializable {
         if (!Utility.isLookupVariableSet(Constants.CIS_HOME)) return;
         resetLastExecutedCommand();
         if (getSsoServer().isSwitchOn()) {
-            String command = getCommandExecutor().setCommand(new SSOServerStartCommand()).execute();
-            getCommandText().setText(command);
-            getCommandBox().setVisible(true);
+            executeCommand(new SSOServerStartCommand(), new DefaultExecuteResultHandler() {
+                @Override
+                public void onProcessComplete(int exitValue) {
+                    getSsoServer().switchedOnProperty().setValue(false);
+
+                }
+            });
+        } else {
+            executeCommand(null, null);
         }
     }
 
@@ -155,9 +172,15 @@ public class ControlsController implements Initializable {
         if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         resetLastExecutedCommand();
         if (getBasicPool().isSwitchOn()) {
-            String command = getCommandExecutor().setCommand(new BasicNodePoolStartCommand()).execute();
-            getCommandText().setText(command);
-            getCommandBox().setVisible(true);
+            executeCommand(new BasicNodePoolStartCommand(), new DefaultExecuteResultHandler() {
+                @Override
+                public void onProcessComplete(int exitValue) {
+
+                    getBasicPool().switchedOnProperty().setValue(false);
+                }
+            });
+        } else {
+            executeCommand(new BasicNodePoolShutdownCommand(), new DefaultExecuteResultHandler());
         }
     }
 
@@ -165,9 +188,14 @@ public class ControlsController implements Initializable {
         if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         resetLastExecutedCommand();
         if (getRmiPool().isSwitchOn()) {
-            String command = getCommandExecutor().setCommand(new RMIPoolStartCommand()).execute();
-            getCommandText().setText(command);
-            getCommandBox().setVisible(true);
+            executeCommand(new RMIPoolStartCommand(), new DefaultExecuteResultHandler(){
+                @Override
+                public void onProcessComplete(int exitValue) {
+                    getRmiPool().switchedOnProperty().setValue(false);
+                }
+            });
+        } else {
+            executeCommand(new RMIPoolShutdownCommand(), new DefaultExecuteResultHandler());
         }
     }
 
@@ -185,6 +213,22 @@ public class ControlsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        lookup = Lookup.getInstance();
+    }
+
+    private void executeCommand(Command command, ExecuteResultHandler handler) {
+        if (command == null) return;
+        getLogger().log(Level.INFO, "Running "+command);
+        try {
+            DefaultExecutor executor = new DefaultExecutor();
+            executor.setWorkingDirectory(command.getWorkingDirectory());
+            executor.execute(command, command.getEnvironmentVariables(), handler);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        getCommandText().setText(command.toString());
+        getCommandBox().setVisible(true);
+    }
+    public Logger getLogger() {
+        return Logger.getLogger(getClass().getName());
     }
 }

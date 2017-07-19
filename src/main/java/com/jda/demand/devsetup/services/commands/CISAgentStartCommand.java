@@ -5,14 +5,14 @@ import com.jda.demand.devsetup.utils.Constants;
 
 import java.io.File;
 
-public class CISAgentStartCommand extends Command {
+public class CISAgentStartCommand extends StartCommand {
 
     private final String EXE = Constants.LAUNCH;
     private final String CIS_HOME = (String) Lookup.getInstance().getVariables().get(Constants.CIS_HOME);
 
     public CISAgentStartCommand() {
         addArgument(EXE);
-        addArgument(Constants.CIS_AGENT_PY);
+        addArgument(Constants.RUN_CIS_AGENT_PY);
     }
 
     @Override

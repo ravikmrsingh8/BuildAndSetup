@@ -5,7 +5,7 @@ import com.jda.demand.devsetup.utils.Constants;
 
 import java.io.File;
 
-public class SetConfigCodeCommand extends Command {
+public class SetConfigCodeCommand extends StartCommand {
     private final String EXE = Constants.SET_CONFIG_CODE;
     private final String ORACLE_NET_SERVICE = Lookup.getInstance().getBuildProperties().getProperty(Constants.ORACLE_NET_SERVICE);
     private final String SCPO_HOME = Lookup.getInstance().getEnvironmentVariables().get(Constants.ENV_BUILD_ROOT);

@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class BuildCommand extends Command {
+public class BuildCommand extends StartCommand {
     private final String EXE = Constants.BUILD;
     private final String SCPO_HOME = Lookup.getInstance().getEnvironmentVariables().get(Constants.ENV_BUILD_ROOT);
 
