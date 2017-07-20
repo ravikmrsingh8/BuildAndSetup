@@ -17,7 +17,12 @@ public class CISAgentStopCommand extends StopCommand {
 
     @Override
     public File getWorkingDirectory() {
-        return new File(CIS_HOME);
+        String _$ = File.separator;
+        String workingDirectory = CIS_HOME;
+        if(!CIS_HOME.endsWith(_$+"bin")) {
+            workingDirectory += _$+"bin";
+        }
+        return new File(workingDirectory);
     }
 
 }

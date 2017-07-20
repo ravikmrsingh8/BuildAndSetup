@@ -38,6 +38,7 @@ public class Constants {
     //Directories from scpo
     public static final String WEBLOGIC = "weblogic";
     public static final String CONFIG = "config";
+    public static final String LOGS = "logs";
     public static final String CLASSES = "classes";
     public static final String BIN = "bin";
     public static final String PLATFORM = "platform";

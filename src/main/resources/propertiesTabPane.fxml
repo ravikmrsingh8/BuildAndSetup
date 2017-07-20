@@ -40,7 +40,7 @@
                                                         <Font size="14.0" />
                                                     </font>
                                                 </Label>
-                                                <TextField fx:id="cisHome" prefWidth="220" promptText="Path To CIS-SDK\bin">
+                                                <TextField fx:id="cisHome" prefWidth="220" promptText="Path To CIS-SDK">
                                                     <font>
                                                         <Font size="13.0" />
                                                     </font>
