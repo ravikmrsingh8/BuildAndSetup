@@ -31,30 +31,31 @@
                     <children>
                         <!--<Button mnemonicParsing="false" text="Button" />-->
                         <FlowPane hgap="15">
+                            <padding><Insets left="10"/></padding>
                             <children>
-                                <Separator orientation="VERTICAL"/>
+                                <!--<Separator orientation="VERTICAL"/>-->
                                 <VBox alignment="CENTER">
                                     <children>
                                         <ImageView onMouseClicked="#onOpenLogsFolder" fx:id="logFolder" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;">
                                             <image>
-                                                <Image url="@images/log.png" />
+                                                <Image url="@images/logfile.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text=" Logs Folder" />
+                                        <!--<Label text=" Logs" />-->
                                     </children>
                                 </VBox>
-                                <Separator orientation="VERTICAL"/>
+                                <Separator orientation="VERTICAL" minHeight="45"/>
                                 <VBox fx:id="stagedGroup" alignment="CENTER">
                                     <children>
                                         <ImageView onMouseClicked="#onOpenStagedFolder" fx:id="stagedFolder" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;">
                                             <image>
-                                                <Image url="@images/server.jpg" />
+                                                <Image url="@images/server.png" />
                                             </image>
                                         </ImageView>
-                                        <Label text=" Staged Folder" />
+                                        <!--<Label text=" Staged Folder" />-->
                                     </children>
                                 </VBox>
-                                <Separator orientation="VERTICAL"/>
+                                <!--<Separator orientation="VERTICAL"/>-->
                             </children>
                         </FlowPane>
 
