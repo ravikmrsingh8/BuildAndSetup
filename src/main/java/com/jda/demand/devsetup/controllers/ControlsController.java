@@ -96,6 +96,7 @@ public class ControlsController implements Initializable {
 
 
     public void onOpenLogsFolder() {
+        if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         resetLastExecutedCommand();
         String SCPO_HOME = getLookup().getEnvironmentVariables().get(Constants.ENV_BUILD_ROOT);
         String _$ = File.separator;
@@ -105,6 +106,7 @@ public class ControlsController implements Initializable {
     }
 
     public void onOpenStagedFolder() {
+        if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         resetLastExecutedCommand();
         String SCPO_HOME = getLookup().getEnvironmentVariables().get(Constants.ENV_BUILD_ROOT);
         String _$ = File.separator;
@@ -114,7 +116,12 @@ public class ControlsController implements Initializable {
         Command command = new OpenFolder(stagedDir);
         executeCommand(command, new DefaultExecuteResultHandler());
     }
+    public void onOpenCommandPrompt() {
+        if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
+        resetLastExecutedCommand();
+        executeCommand(new OpenCommandPromptCommand(), new DefaultExecuteResultHandler());
 
+    }
     public void onAdminServerToggleSwitch() {
         if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         resetLastExecutedCommand();

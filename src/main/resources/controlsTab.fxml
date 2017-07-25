@@ -30,10 +30,10 @@
                 <VBox prefHeight="200.0" prefWidth="100.0">
                     <children>
                         <!--<Button mnemonicParsing="false" text="Button" />-->
-                        <FlowPane hgap="15">
-                            <padding><Insets left="10"/></padding>
+                        <FlowPane hgap="12">
+                            <!--<padding><Insets left="10"/></padding>-->
                             <children>
-                                <!--<Separator orientation="VERTICAL"/>-->
+                                <Separator orientation="VERTICAL" minHeight="45"/>
                                 <VBox alignment="CENTER">
                                     <children>
                                         <ImageView onMouseClicked="#onOpenLogsFolder" fx:id="logFolder" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;">
@@ -55,7 +55,19 @@
                                         <!--<Label text=" Staged Folder" />-->
                                     </children>
                                 </VBox>
-                                <!--<Separator orientation="VERTICAL"/>-->
+                                <Separator orientation="VERTICAL" minHeight="45"/>
+
+                                <VBox alignment="CENTER">
+                                    <children>
+                                        <ImageView onMouseClicked="#onOpenCommandPrompt" fx:id="cmdprompt" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: HAND;">
+                                            <image>
+                                                <Image url="@images/cmd-filled.png" />
+                                            </image>
+                                        </ImageView>
+                                        <!--<Label text=" Logs" />-->
+                                    </children>
+                                </VBox>
+                                <Separator orientation="VERTICAL" minHeight="45"/>
                             </children>
                         </FlowPane>
 
