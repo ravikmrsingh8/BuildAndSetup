@@ -12,7 +12,6 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.apache.commons.exec.DefaultExecuteResultHandler;
-import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.ExecuteResultHandler;
 
 import java.io.File;
@@ -212,7 +211,7 @@ public class ControlsController implements Initializable {
         if (command == null) return;
         getLogger().log(Level.INFO, "Running " + command);
         try {
-            DefaultExecutor executor = new DefaultExecutor();
+            CommandExecutor executor = CommandExecutor.getExecutor();
             executor.setWorkingDirectory(command.getWorkingDirectory());
             executor.execute(command, command.getEnvironmentVariables(), handler);
         } catch (IOException e) {
