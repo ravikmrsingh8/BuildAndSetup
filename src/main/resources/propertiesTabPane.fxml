@@ -59,11 +59,6 @@
                                                                 <Image url="@images/search.png" />
                                                             </image>
                                                         </ImageView>
-                                                        <ImageView fx:id="reloadEnvFile" fitHeight="30.0" fitWidth="46.0" onMouseClicked="#onBrowseEnvFile" pickOnBounds="true" preserveRatio="true">
-                                                            <image>
-                                                                <Image url="@images/reload.png" />
-                                                            </image>
-                                                        </ImageView>
                                                     </children>
                                                 </HBox>
                                             </children>
@@ -135,24 +130,24 @@
                                     <children>
                                         <HBox minWidth="507.0" spacing="5.0">
                                             <children>
-                                                <Button style="-fx-graphic: url('/images/lock.png')" styleClass="default" text="Password">
+                                                <Button onAction="#onEncryptPasswordButton" style="-fx-graphic: url('/images/lock.png')" styleClass="default" text="Password">
                                                     <tooltip>
                                                         <Tooltip styleClass="info" text="Generate encrypted password for DB users" />
                                                     </tooltip>
                                                 </Button>
 
-                                                <Button minWidth="150" style="-fx-graphic: url('/images/buildprop.png')" styleClass="default" text="Properties">
+                                                <Button onAction="#onPropertiesButton" minWidth="150" style="-fx-graphic: url('/images/buildprop.png')" styleClass="default" text="Properties">
                                                     <tooltip>
                                                         <Tooltip styleClass="info" text="Displays all build properties" />
                                                     </tooltip>
                                                 </Button>
-                                                <Button style="-fx-graphic: url('/images/refresh.png')" styleClass="default" text="Reload">
+                                                <Button onAction="#onReloadBuildPropsButton" style="-fx-graphic: url('/images/refresh.png')" styleClass="default" text="Reload">
                                                     <tooltip>
-                                                        <Tooltip styleClass="info" text="Reload build properties file" />
+                                                        <Tooltip styleClass="info" text="Reload Properties " />
                                                     </tooltip>
                                                 </Button>
 
-                                                <Button minWidth="240" styleClass="default" text="Environment Variables">
+                                                <Button onAction="#onEnvironmentVariablesButton" minWidth="240" styleClass="default" text="Environment Variables">
 
                                                     <tooltip>
                                                         <Tooltip styleClass="info" text="Displays all environment variables" />
@@ -234,7 +229,7 @@
                         </VBox>
                         <FlowPane hgap="5">
                             <children>
-                                <Button maxHeight="15" styleClass="default" text="Generate Config Code" />
+                                <Button onAction="#onGenerateConfigCodeButton" maxHeight="15" styleClass="default" text="Generate Config Code" />
                                 <TextField editable="false" minWidth="330" />
                                 <Button styleClass="default" text="Set Config Code" />
                             </children>

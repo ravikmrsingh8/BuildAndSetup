@@ -1,9 +1,9 @@
 package com.jda.demand.devsetup.controllers;
 
+import com.jda.demand.devsetup.components.BuildProperties;
+import com.jda.demand.devsetup.components.EnvironmentVariables;
 import com.jda.demand.devsetup.lookup.Lookup;
-import com.jda.demand.devsetup.services.commands.BuildCommand;
-import com.jda.demand.devsetup.services.commands.Command;
-import com.jda.demand.devsetup.services.commands.InstallLicenseCommand;
+import com.jda.demand.devsetup.services.commands.*;
 import com.jda.demand.devsetup.utils.Constants;
 import com.jda.demand.devsetup.utils.Utility;
 import javafx.fxml.FXML;
@@ -15,6 +15,7 @@ import org.apache.commons.exec.DefaultExecuteResultHandler;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.ExecuteResultHandler;
 
+import javax.rmi.CORBA.Util;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -145,6 +146,51 @@ public class BuildPropertiesController implements Initializable {
         this.lookup = lookup;
     }
 
+
+    public void onPropertiesButton() {
+        BuildProperties.displayProperties();
+    }
+
+    public void onEnvironmentVariablesButton() {
+        EnvironmentVariables.displayVariables();
+    }
+
+    public void onEncryptPasswordButton() {
+        if (!Utility.isSet(getEnvFile().getText())) return;
+        executeCommand(new GenerateEncryptedPasswordCommand(), new DefaultExecuteResultHandler());
+    }
+
+    public void onReloadBuildPropsButton() {
+        //Loading properties based on env file
+        String envFile = (String) getLookup().getVariables().get(Constants.ENV_FILE);
+        getLogger().log(Level.INFO, "ENV_FILE : " + envFile);
+        if (envFile != null && !envFile.isEmpty()) {
+            getLookup().load(envFile);
+            setDependentProperties();
+        }
+    }
+
+
+
+
+    public void onBrowseLicFile() {
+        File file = new FileChooser().showOpenDialog(null);
+        if (file != null) {
+            getLicFile().setText(file.getAbsolutePath());
+            Lookup.getInstance().getVariables().put(Constants.LIC_FILE, getLicFile().getText());
+        }
+    }
+
+
+    public void onBrowseEnvFile() {
+        File file = new FileChooser().showOpenDialog(null);
+        if (file == null) return;
+        getEnvFile().setText(file.getAbsolutePath());
+        getLookup().getVariables().put(Constants.ENV_FILE, getEnvFile().getText());
+        getLookup().load(file.getAbsolutePath());
+        setDependentProperties();
+    }
+
     public void onBuildButton() {
         if (!Utility.isSet(getEnvFile().getText())) return;
         Command command = new BuildCommand();
@@ -164,23 +210,9 @@ public class BuildPropertiesController implements Initializable {
         executeCommand(new InstallLicenseCommand(), new DefaultExecuteResultHandler());
     }
 
-
-    public void onBrowseLicFile() {
-        File file = new FileChooser().showOpenDialog(null);
-        if (file != null) {
-            getLicFile().setText(file.getAbsolutePath());
-            Lookup.getInstance().getVariables().put(Constants.LIC_FILE, getLicFile().getText());
-        }
-    }
-
-
-    public void onBrowseEnvFile() {
-        File file = new FileChooser().showOpenDialog(null);
-        if (file == null) return;
-        getEnvFile().setText(file.getAbsolutePath());
-        getLookup().getVariables().put(Constants.ENV_FILE, getEnvFile().getText());
-        getLookup().load(file.getAbsolutePath());
-        setDependentProperties();
+    public void onGenerateConfigCodeButton(){
+        if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
+        executeCommand(new RunScpoTaskCommand(), new DefaultExecuteResultHandler());
     }
 
     @Override
@@ -203,7 +235,6 @@ public class BuildPropertiesController implements Initializable {
             getLookup().load(envFile);
             setDependentProperties();
         }
-
 
         //add ValueChangeListener for cisHome Text Field
         getCisHome().textProperty().addListener((observable, oldValue, newValue) -> {

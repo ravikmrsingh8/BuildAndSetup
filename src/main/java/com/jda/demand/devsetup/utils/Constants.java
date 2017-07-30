@@ -80,6 +80,10 @@ public class Constants {
     public static final String SRE_CLEANUP_SQL = "Cleanup.sql";
     public static final String BUILD = "build";
 
+
+    public static final String GEN_ENC_PASS = "genEncryptedPassword.cmd";
+
+
     //Schemas
     public static final String SCPOMGR = "SCPOMGR";
     public static final String WWFMGR = "WWFMGR";
