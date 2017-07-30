@@ -1,105 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.StackPane?>
-<AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="500.0" prefWidth="830.0" stylesheets="@css/bootstrap3.css"
-           xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.jda.demand.devsetup.controllers.JarBuilderController">
+<?import javafx.scene.layout.VBox?>
+<AnchorPane stylesheets="@css/bootstrap3.css"
+            xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.jda.demand.devsetup.controllers.JarBuilderController">
     <children>
-        <GridPane>
-            <columnConstraints>
-                <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="820.0"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints prefHeight="440.0" vgrow="NEVER"/>
-                <RowConstraints prefHeight="40.0" vgrow="NEVER"/>
-            </rowConstraints>
+        <VBox>
+            <padding ><Insets top="5" bottom="10"/></padding>
             <children>
-                <TableView fx:id="tableView" prefHeight="440" prefWidth="810.0" GridPane.columnIndex="0"
-                           GridPane.rowIndex="0" style="-fx-border-color:WHITE">
-
+                <TableView fx:id="tableView" maxHeight="460" maxWidth="780">
                     <columns>
-                        <TableColumn style="-fx-border-color:WHITE" prefWidth="811.0" text="All Files">
+                        <TableColumn prefWidth="770" text="All Files">
                             <cellValueFactory>
                                 <PropertyValueFactory property="absolutePath"/>
                             </cellValueFactory>
                         </TableColumn>
                     </columns>
                     <items>
-                        <FXCollections fx:factory="observableArrayList">
-
-                        </FXCollections>
+                        <FXCollections fx:factory="observableArrayList"></FXCollections>
                     </items>
                 </TableView>
 
-                <HBox nodeOrientation="LEFT_TO_RIGHT"  prefWidth="819.0" spacing="5"
-                      GridPane.rowIndex="1" GridPane.columnIndex="0" >
-                    <padding><Insets top="5"/></padding>
+                <HBox nodeOrientation="LEFT_TO_RIGHT" maxWidth="780.0" spacing="5">
+                    <padding>
+                        <Insets top="5" left="5"/>
+                    </padding>
                     <children>
-                        <ImageView fx:id="imageView"  fitHeight="33.0" fitWidth="53.0"  pickOnBounds="true"
+                        <ImageView fx:id="imageView" fitHeight="33.0" fitWidth="53.0" pickOnBounds="true"
                                    preserveRatio="true" HBox.hgrow="NEVER">
-                            <image>
-
-                            </image>
+                            <image></image>
                         </ImageView>
-                        <Label fx:id="label" HBox.hgrow="NEVER" minWidth="48.0" prefHeight="31.0" prefWidth="182.0" text="">
-                            <font>
-                                <Font size="14.0"/>
-                            </font>
-                        </Label>
+                        <Label minHeight="30" fx:id="label" HBox.hgrow="NEVER" minWidth="48.0" prefWidth="160.0" text=""/>
                         <Region minWidth="10"/>
 
-                        <TextField fx:id="inputJarName" minWidth="40" prefHeight="32.0" prefWidth="170.0"
+                        <TextField fx:id="inputJarName" minWidth="40" prefWidth="170.0"
                                    promptText="JAR Name">
-                            <font>
-                                <Font size="14.0"/>
-                            </font>
                         </TextField>
 
-                        <Button fx:id="addFileButton" mnemonicParsing="true" onAction="#onAddFile"
-                                style="-fx-background-insets: 0,0,-1,0;" styleClass="primary" text="_Add Files">
-                            <font>
-                                <Font size="14.0"/>
-                            </font>
+                        <Button mnemonicParsing="false" onAction="#onAddFile"
+                                styleClass="default" text="Add Files">
                         </Button>
-                        <Button fx:id="addFolderButton" mnemonicParsing="true" onAction="#onAddFolderButton"
-                                style="-fx-background-insets: 0,0,-1,0;" styleClass="primary" text="Add _Folder">
-
-                            <font>
-                                <Font size="14.0"/>
-                            </font>
+                        <Button mnemonicParsing="false" onAction="#onAddFolderButton"
+                                styleClass="default" text="Add Folder">
                         </Button>
-                        <Button fx:id="deleteButton" mnemonicParsing="true" onAction="#onDeleteButton" prefWidth="85"
-                                style="-fx-background-insets: 0,0,-1,0;" styleClass="primary" text="_Delete">
-                            <font>
-                                <Font size="14.0"/>
-                            </font>
+                        <Button mnemonicParsing="false" onAction="#onDeleteButton" prefWidth="85"
+                                styleClass="default" text="Delete">
                         </Button>
-                        <Button fx:id="createButton" mnemonicParsing="true" onAction="#onCreateButton" prefWidth="88"
-                                style="-fx-background-insets: 0,0,-1,0;" styleClass="primary" text="_Create ">
-                            <font>
-                                <Font size="14.0"/>
-                            </font>
+                        <Button mnemonicParsing="false" onAction="#onCreateButton" prefWidth="88"
+                                styleClass="default" text="Create ">
                         </Button>
                     </children>
                 </HBox>
+                <Region VBox.vgrow="ALWAYS" prefHeight="0"/>
+
             </children>
-        </GridPane>
+        </VBox>
     </children>
 </AnchorPane>

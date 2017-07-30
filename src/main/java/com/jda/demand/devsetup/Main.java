@@ -22,7 +22,7 @@ public class Main extends Application {
         Parent root = loader.load();
         Stage window = primaryStage;
         window.setOnCloseRequest(e -> savePreferences());
-        Scene scene = new Scene(root, 860, 620);
+        Scene scene = new Scene(root, 860, 650);
         Image image = new Image(getClass().getClassLoader().getResourceAsStream("images/setup.png"));
         window.getIcons().add(image);
         window.setTitle("Dev Environment Setup");

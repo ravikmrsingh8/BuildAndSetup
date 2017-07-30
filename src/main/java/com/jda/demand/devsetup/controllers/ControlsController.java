@@ -115,12 +115,7 @@ public class ControlsController implements Initializable {
         Command command = new OpenFolder(stagedDir);
         executeCommand(command, new DefaultExecuteResultHandler());
     }
-    public void onOpenCommandPrompt() {
-        if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
-        resetLastExecutedCommand();
-        executeCommand(new OpenCommandPromptCommand(), new DefaultExecuteResultHandler());
 
-    }
     public void onAdminServerToggleSwitch() {
         if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         resetLastExecutedCommand();
