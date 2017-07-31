@@ -196,7 +196,7 @@ public class ControlsController implements Initializable {
         if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         resetLastExecutedCommand();
         if (getCollabRmiPool().isSwitchOn()) {
-            executeCommand(new CollabRMIPoolStartCommand(), new ProcessExecutionResultHandler(getRmiPool(), "Collab RMI Pool"));
+            executeCommand(new CollabRMIPoolStartCommand(), new ProcessExecutionResultHandler(getCollabRmiPool(), "Collab RMI Pool"));
         } else {
             executeCommand(new CollabRMIPoolShutdownCommand(), new DefaultExecuteResultHandler());
         }
