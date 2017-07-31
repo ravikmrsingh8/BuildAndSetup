@@ -23,6 +23,7 @@ public class EnvironmentVariableFileParser {
     private static Map<String, String> envMap = new LinkedHashMap<>();
 
     public static Map<String, String> parseFile(String filePath) throws IOException {
+        envMap.clear();
         InputStream in = new FileInputStream(filePath);
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String line = null;

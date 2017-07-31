@@ -25,31 +25,18 @@ public class MainController implements Initializable {
         return rootPane;
     }
 
-
-    private Lookup lookup;
-    private Logger logger;
-
     public Lookup getLookup() {
-        return lookup;
-    }
-
-    public void setLookup(Lookup lookup) {
-        this.lookup = lookup;
+        return Lookup.getInstance();
     }
 
     public Logger getLogger() {
-        return logger;
+        return Logger.getLogger(getClass().getName());
     }
 
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
 
     public void initialize(URL location, ResourceBundle resources) {
         if (!Main.splashLoaded) {
             splash();
-            setLookup(Lookup.getInstance());
-            setLogger(Logger.getLogger(getClass().getName()));
 
             Preferences preferences = Preferences.getInstance();
             if (preferences.isExist()) {

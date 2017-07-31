@@ -63,9 +63,6 @@ public class BuildPropertiesController implements Initializable {
     private CheckBox scscSrc;
 
 
-    Logger logger = null;
-    Lookup lookup = null;
-
     public CheckBox getFindBugs() {
         return findBugs;
     }
@@ -135,19 +132,11 @@ public class BuildPropertiesController implements Initializable {
     }
 
     public Logger getLogger() {
-        return logger;
-    }
-
-    public void setLogger(Logger logger) {
-        this.logger = logger;
+        return Logger.getLogger(getClass().getName());
     }
 
     public Lookup getLookup() {
-        return lookup;
-    }
-
-    public void setLookup(Lookup lookup) {
-        this.lookup = lookup;
+        return Lookup.getInstance();
     }
 
 
@@ -166,7 +155,7 @@ public class BuildPropertiesController implements Initializable {
 
     public void onReloadBuildPropsButton() {
         //Loading properties based on env file
-        String envFile = (String) getLookup().getVariables().get(Constants.ENV_FILE);
+        String envFile = getEnvFile().getText();
         getLogger().log(Level.INFO, "ENV_FILE : " + envFile);
         if (envFile != null && !envFile.isEmpty()) {
             getLookup().load(envFile);
@@ -190,7 +179,7 @@ public class BuildPropertiesController implements Initializable {
         File file = new FileChooser().showOpenDialog(null);
         if (file == null) return;
         getEnvFile().setText(file.getAbsolutePath());
-        getLookup().getVariables().put(Constants.ENV_FILE, getEnvFile().getText());
+
         getLookup().load(file.getAbsolutePath());
         setDependentProperties();
     }
@@ -225,9 +214,6 @@ public class BuildPropertiesController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        setLogger(Logger.getLogger(getClass().getName()));
-        setLookup(Lookup.getInstance());
 
         //update UI according to preferences
         getLookup().getVariables().forEach((key, value) -> {
