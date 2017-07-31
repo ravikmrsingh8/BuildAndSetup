@@ -154,6 +154,7 @@ public class BuildPropertiesController implements Initializable {
     }
 
     public void onReloadBuildPropsButton() {
+        if (!Utility.isSet(getEnvFile().getText())) return;
         //Loading properties based on env file
         String envFile = getEnvFile().getText();
         getLogger().log(Level.INFO, "ENV_FILE : " + envFile);
