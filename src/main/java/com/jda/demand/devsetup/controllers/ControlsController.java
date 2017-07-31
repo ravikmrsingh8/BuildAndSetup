@@ -38,6 +38,8 @@ public class ControlsController implements Initializable {
     private ToggleSwitch rmiPool;
 
     @FXML
+    private ToggleSwitch collabRmiPool;
+    @FXML
     private VBox commandBox;
     @FXML
     private Text statusText;
@@ -73,6 +75,10 @@ public class ControlsController implements Initializable {
 
     public ToggleSwitch getRmiPool() {
         return rmiPool;
+    }
+
+    public ToggleSwitch getCollabRmiPool() {
+        return collabRmiPool;
     }
 
     public Text getStatusText() {
@@ -139,7 +145,7 @@ public class ControlsController implements Initializable {
             String WEB_SERVER_PORT = getLookup().getBuildProperties().getProperty(Constants.SERVER_STANDARD_PORT);
             String HOST_NAME = getLookup().getBuildProperties().getProperty(Constants.SERVER_HOST_NAME);
             String url = "http://" + HOST_NAME + ":" + WEB_SERVER_PORT + "/";
-            getStatusText().setText("Web Server Running at ");
+            getStatusText().setText("App Server Running at ");
             getHyperlinkURL().setText(url);
         } else {
             executeCommand(new ManagedServerShutdownCommand(), new DefaultExecuteResultHandler());
@@ -180,9 +186,19 @@ public class ControlsController implements Initializable {
         if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         resetLastExecutedCommand();
         if (getRmiPool().isSwitchOn()) {
-            executeCommand(new RMIPoolStartCommand(), new ProcessExecutionResultHandler(getRmiPool(), "RMI Pool"));
+            executeCommand(new RMIPoolStartCommand(), new ProcessExecutionResultHandler(getRmiPool(), "Worksheet RMI Pool"));
         } else {
             executeCommand(new RMIPoolShutdownCommand(), new DefaultExecuteResultHandler());
+        }
+    }
+
+    public void onCollabRMIPoolToggleSwitch() {
+        if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
+        resetLastExecutedCommand();
+        if (getCollabRmiPool().isSwitchOn()) {
+            executeCommand(new CollabRMIPoolStartCommand(), new ProcessExecutionResultHandler(getRmiPool(), "Collab RMI Pool"));
+        } else {
+            executeCommand(new CollabRMIPoolShutdownCommand(), new DefaultExecuteResultHandler());
         }
     }
 

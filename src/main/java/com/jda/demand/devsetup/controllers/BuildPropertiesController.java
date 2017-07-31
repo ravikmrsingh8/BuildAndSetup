@@ -15,7 +15,6 @@ import org.apache.commons.exec.DefaultExecuteResultHandler;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.ExecuteResultHandler;
 
-import javax.rmi.CORBA.Util;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -43,10 +42,11 @@ public class BuildPropertiesController implements Initializable {
     private TextField dbName;
     @FXML
     private TextField sid;
-
     @FXML
     private TextField licFile;
 
+    @FXML
+    private TextField configCodeArguments;
     @FXML
     private CheckBox findBugs;
     @FXML
@@ -128,6 +128,10 @@ public class BuildPropertiesController implements Initializable {
 
     public TextField getSid() {
         return sid;
+    }
+
+    public TextField getConfigCodeArguments() {
+        return configCodeArguments;
     }
 
     public Logger getLogger() {
@@ -215,6 +219,10 @@ public class BuildPropertiesController implements Initializable {
         executeCommand(new RunScpoTaskCommand(), new DefaultExecuteResultHandler());
     }
 
+    public void onSetConfigCodeButton() {
+        if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
+        executeCommand(new SetConfigCodeCommand(), new DefaultExecuteResultHandler());
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -261,9 +269,19 @@ public class BuildPropertiesController implements Initializable {
 
         String findBugs = getLookup().getEnvironmentVariables().get(Constants.ENV_FINDBUGS_OFF);
         getFindBugs().setSelected("false".equals(findBugs));
-
+        setConfigCodeText();
     }
 
+    private void setConfigCodeText() {
+        final String ORACLE_NET_SERVICE = getLookup().getBuildProperties().getProperty(Constants.ORACLE_NET_SERVICE);
+        final String USER1 = getLookup().getBuildProperties().getProperty(Constants.USER1);
+        final String USER2 = getLookup().getBuildProperties().getProperty(Constants.USER2);
+        final String USER1_PASS = getLookup().getBuildProperties().getProperty(Constants.USER1_PASS);
+        final String USER2_PASS = getLookup().getBuildProperties().getProperty(Constants.USER2_PASS);
+        String text = USER1+" "+USER1_PASS+"@"+ORACLE_NET_SERVICE + " " + USER2+" "+USER2_PASS+"@"+ORACLE_NET_SERVICE;
+        getConfigCodeArguments().setText(text);
+
+    }
     private void executeCommand(Command command, ExecuteResultHandler handler) {
         if (command == null) return;
         getLogger().log(Level.INFO, "Running "+command);

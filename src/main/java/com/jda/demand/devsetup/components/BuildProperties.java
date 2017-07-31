@@ -17,7 +17,10 @@ public class BuildProperties {
     public static void displayProperties()  {
         Stage window = new Stage();
         ScrollPane pane = new ScrollPane();
+        pane.setPadding(new Insets(10));
         VBox vBox = new VBox(5);
+        vBox.setPrefWidth(570);
+        vBox.setStyle("-fx-background-color:WHITE");
         vBox.setPadding(new Insets(10));
         vBox.getChildren().addAll(getAllBuildProps());
         pane.setContent(vBox);

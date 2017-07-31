@@ -87,10 +87,10 @@
                                                 <TextField fx:id="serverHostName" editable="false" prefWidth="220.0" />
                                             </children>
                                         </VBox>
-                                        <!--Web Server Port-->
+                                        <!--App Server Port-->
                                         <VBox>
                                             <children>
-                                                <Label text="Web Server Port" />
+                                                <Label text="App Server Port" />
                                                 <TextField fx:id="webServerPort" editable="false" maxWidth="150" />
                                             </children>
                                         </VBox>
@@ -230,8 +230,8 @@
                         <FlowPane hgap="5">
                             <children>
                                 <Button onAction="#onGenerateConfigCodeButton" maxHeight="15" styleClass="default" text="Generate Config Code" />
-                                <TextField editable="false" minWidth="330" />
-                                <Button styleClass="default" text="Set Config Code" />
+                                <TextField fx:id ="configCodeArguments" editable="false" prefWidth="400" />
+                                <Button onAction="#onSetConfigCodeButton" styleClass="default" text="Set Config Code" />
                             </children>
                         </FlowPane>
                         <Region VBox.vgrow="ALWAYS" prefHeight="0"/>

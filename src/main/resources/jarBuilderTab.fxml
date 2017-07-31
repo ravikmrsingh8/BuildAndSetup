@@ -20,7 +20,7 @@
         <VBox>
             <padding ><Insets top="5" bottom="10"/></padding>
             <children>
-                <TableView fx:id="tableView" maxHeight="460" maxWidth="780">
+                <TableView fx:id="tableView" prefHeight="470" maxHeight="470" maxWidth="780">
                     <columns>
                         <TableColumn prefWidth="770" text="All Files">
                             <cellValueFactory>

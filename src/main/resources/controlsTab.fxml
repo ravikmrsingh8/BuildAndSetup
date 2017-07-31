@@ -101,7 +101,7 @@
                                 <VBox>
                                     <children>
                                         <Label text="Collab RMI Node Pool"/>
-                                        <ToggleSwitch fx:id="collabRmiPool" onAction="#onRMIPoolToggleSwitch"/>
+                                        <ToggleSwitch fx:id="collabRmiPool" onAction="#onCollabRMIPoolToggleSwitch"/>
                                     </children>
                                 </VBox>
 

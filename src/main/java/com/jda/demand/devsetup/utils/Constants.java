@@ -65,6 +65,7 @@ public class Constants {
     public static final String SHUTDOWN_NODE_POOL = "shutDownNodePoolManager.cmd";
     public static final String BASIC_NODE_POOL = "Basic";
     public static final String RMI_NODE_POOL = "RMI";
+    public static final String COLLAB_RMI_NODE_POOL = "CollabWBRMI";
 
     public static final String LAUNCH = "launch.bat";
     public static final String RUN_CIS_AGENT_PY = "runCISAgent.py";
@@ -87,6 +88,10 @@ public class Constants {
     //Schemas
     public static final String SCPOMGR = "SCPOMGR";
     public static final String WWFMGR = "WWFMGR";
+    public static final String USER1 =  "ORACLE_DB_1";
+    public static final String USER1_PASS =  "ORACLE_DB_2";
+    public static final String USER2 =  "WWF_DB_CONNECTION_VAR_4";
+    public static final String USER2_PASS =  "WWF_DB_CONNECTION_VAR_5";
 
     //JAR Properties
     public static final String DEFAULT_JAR_NAME = "Test.jar";
