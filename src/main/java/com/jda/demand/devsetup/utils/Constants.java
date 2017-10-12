@@ -19,6 +19,8 @@ public class Constants {
     public static final String BEA_CREATE_SERVER = "bea_create_server";
     public static final String DEMAND_SRC = "demandsrc";
     public static final String SCSC_SRC = "scscsrc";
+    public static final String FIND_BUGS = "findbugs";
+    public static final String JARS = "jars";
 
 
     //Environment Variables Keys

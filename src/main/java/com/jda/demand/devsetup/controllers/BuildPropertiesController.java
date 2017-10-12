@@ -165,8 +165,6 @@ public class BuildPropertiesController implements Initializable {
     }
 
 
-
-
     public void onBrowseLicFile() {
         File file = new FileChooser().showOpenDialog(null);
         if (file != null) {
@@ -188,14 +186,21 @@ public class BuildPropertiesController implements Initializable {
     public void onBuildButton() {
         if (!Utility.isSet(getEnvFile().getText())) return;
         Command command = new BuildCommand();
+
         if (getClean().isSelected()) command.addArgument(Constants.CLEAN);
         if (getSystem().isSelected()) command.addArgument(Constants.SYSTEM);
         if (getCustomize().isSelected()) command.addArgument(Constants.CUSTOMIZE);
         if (getBeaCreateServer().isSelected()) command.addArgument(Constants.BEA_CREATE_SERVER);
         if (getDemandSrc().isSelected()) command.addArgument(Constants.DEMAND_SRC);
         if (getScscSrc().isSelected()) command.addArgument(Constants.SCSC_SRC);
+
         String findBugOff = getFindBugs().isSelected() ? "false" : "true";
         getLookup().getEnvironmentVariables().put(Constants.ENV_FINDBUGS_OFF, findBugOff);
+
+        if ("false".equals(findBugOff)) {
+            command.addArgument(Constants.JARS);
+            command.addArgument(Constants.FIND_BUGS);
+        }
         executeCommand(command, new DefaultExecuteResultHandler());
     }
 
@@ -204,7 +209,7 @@ public class BuildPropertiesController implements Initializable {
         executeCommand(new InstallLicenseCommand(), new DefaultExecuteResultHandler());
     }
 
-    public void onGenerateConfigCodeButton(){
+    public void onGenerateConfigCodeButton() {
         if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         executeCommand(new RunScpoTaskCommand(), new DefaultExecuteResultHandler());
     }
@@ -213,6 +218,7 @@ public class BuildPropertiesController implements Initializable {
         if (!Utility.isLookupVariableSet(Constants.ENV_FILE)) return;
         executeCommand(new SetConfigCodeCommand(), new DefaultExecuteResultHandler());
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -265,13 +271,14 @@ public class BuildPropertiesController implements Initializable {
         final String USER2 = getLookup().getBuildProperties().getProperty(Constants.USER2);
         final String USER1_PASS = getLookup().getBuildProperties().getProperty(Constants.USER1_PASS);
         final String USER2_PASS = getLookup().getBuildProperties().getProperty(Constants.USER2_PASS);
-        String text = USER1+" "+USER1_PASS+"@"+ORACLE_NET_SERVICE + " " + USER2+" "+USER2_PASS+"@"+ORACLE_NET_SERVICE;
+        String text = USER1 + " " + USER1_PASS + "@" + ORACLE_NET_SERVICE + " " + USER2 + " " + USER2_PASS + "@" + ORACLE_NET_SERVICE;
         getConfigCodeArguments().setText(text);
 
     }
+
     private void executeCommand(Command command, ExecuteResultHandler handler) {
         if (command == null) return;
-        getLogger().log(Level.INFO, "Running "+command);
+        getLogger().log(Level.INFO, "Running " + command);
         try {
             DefaultExecutor executor = new DefaultExecutor();
             executor.setWorkingDirectory(command.getWorkingDirectory());
